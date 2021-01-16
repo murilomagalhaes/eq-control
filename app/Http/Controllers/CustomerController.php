@@ -10,4 +10,9 @@ class CustomerController extends Controller
     {
         return view('clientes.index');
     }
+
+    public function new()
+    {
+        return view('clientes.novo');
+    }
 }

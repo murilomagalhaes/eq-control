@@ -6,9 +6,9 @@
     <div class="col-12">
         <div class="d-flex align-items-center justify-content-between">
             <h1 class="h4 my-3 me-3"> Cadastro de Clientes </h1>
-            <button class="btn btn-outline-primary d-flex align-items-center"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
-                    <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#plus')}}" />
-                </svg> Incluir</button>
+            <a class="btn btn-outline-primary d-flex align-items-center" href="{{route('cadastros.cliente.novo')}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                    <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#plus-square')}}" />
+                </svg> Incluir</a>
 
         </div>
         <div class="accordion my-3" id="accordionExample">

@@ -19,4 +19,5 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::group(['prefix' => '/cadastros'], function () {
     Route::get('/cliente', [CustomerController::class, 'index'])->name('cadastros.cliente');
+    Route::get('/cliente/novo', [CustomerController::class, 'new'])->name('cadastros.cliente.novo');
 });

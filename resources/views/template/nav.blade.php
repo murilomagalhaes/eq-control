@@ -10,14 +10,14 @@
                         <a class="nav-link {{Route::is('dashboard') ? 'active' : ''}}" aria-current="page" href="/">Dashboard</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{Route::is('cadastros.cliente') ? 'active' : ''}}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {{strpos(Request::path(), '/cliente') ? 'active' : ''}}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Cadastro
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li class="mb-2">
                                 <span class="m-3 fw-bold">Pessoas:</span>
                             </li>
-                            <li><a class="dropdown-item {{Route::is('cadastros.cliente') ? 'active' : ''}}" href="{{route('cadastros.cliente')}}">Cliente</a></li>
+                            <li><a class="dropdown-item {{strpos(Request::path(), '/cliente') ? 'active' : ''}}" href="{{route('cadastros.cliente')}}">Cliente</a></li>
                             <li><a class="dropdown-item" href="#">Usuário</a></li>
                             <li class="mb-2">
                                 <hr class="dropdown-divider"> <span class="m-3 fw-bold">Equipamentos:</span>
