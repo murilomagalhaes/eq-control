@@ -26,17 +26,26 @@ class NewCustomerFormRequest extends FormRequest
         return [
             'nome' => 'max:60|min:4|required',
             'razao' => 'max:60|min:4|required',
-            'cep' => 'min:9',
+            'cpf_cnpj' => 'digits_between:11,14|required|unique:customers,cpf_cnpj',
+            'email' => 'email',
+            'telefone' => 'digits_between:10,11|required',
+            'cep' => 'digits:8',
+            'uf' => 'max:2|required',
             'cidade' => 'max:60|min:4|required',
-            'endereco' => 'min:4|required',
-            'telefone' => 'min:10|max:11|required'
+            'endereco' => 'min:4|required'
         ];
     }
 
     public function messages()
     {
         return [
-            //
+            'razao.required' => 'O campo razão social é obrigatório',
+            'razao.min' => 'O campo razão social deve ter pelo menos 4 caracteres',
+            'cpf_cnpj.required' => 'O campo CPF/CNPJ é obrigatório.',
+            'cpf_cnpj.digits_between' => 'O campo CPF/CNPJ deve ter entre 11 e 14 dígitos',
+            'cpf_cnpj.unique' => 'O CPF/CNPJ já está sendo usado em outro cadastro.',
+            'endereco.required' => 'O campo endereço é obrigatório',
+            'endereco.min' => 'O campo endereço deve ter pelo menos 4 caractéres'
         ];
     }
 }

@@ -26,10 +26,10 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <form action="">
+                        <form action="{{route('cadastros.cliente.search')}}" method="GET">
 
                             <div class="input-group my-2">
-                                <input type="text" class="form-control me-2" placeholder="Pesquisa por nome, razão social, ou CNPJ" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <input type="text" name="q" class="form-control me-2" placeholder="Pesquisa por nome, razão social, ou CNPJ" aria-label="Recipient's username" aria-describedby="button-addon2">
                                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar</button>
                             </div>
 
@@ -40,11 +40,15 @@
         </div>
     </div>
 
-    <div class="row">
-
-    </div>
-
 </div>
+
+@if(!empty(session('store_success')))
+<div class="row mt-4">
+    <div class="alert alert-success shadow-sm">
+        {{session('store_success')}}
+    </div>
+</div>
+@endif
 
 <div class="m-auto">
     <table class="table table-responsive table-hover caption-top ">
@@ -53,37 +57,23 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
-                <th scope="col">CNPJ</th>
+                <th scope="col">CPF/CNPJ</th>
                 <th scope="col">Telefone</th>
                 <th scope="col">Cidade</th>
                 <th scope="col">Endereço</th>
             </tr>
         </thead>
         <tbody>
+            @foreach($customers as $i => $customer)
             <tr>
-                <th scope="row">1</th>
-                <td>Autotec</td>
-                <td>00.000.000/0000-00</td>
-                <td>61999999999</td>
-                <td>Brasília</td>
-                <td>QNF 09 Lote 40</td>
+                <th scope="row">{{$i+1}}</th>
+                <td>{{$customer->nome}}</td>
+                <td>{{$customer->cpf_cnpj}}</td>
+                <td>{{$customer->telefone}}</td>
+                <td>{{$customer->cidade}}</td>
+                <td>{{$customer->endereco}}</td>
             </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Autotec</td>
-                <td>00.000.000/0000-00</td>
-                <td>61999999999</td>
-                <td>Brasília</td>
-                <td>QNF 09 Lote 40</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Autotec</td>
-                <td>00.000.000/0000-00</td>
-                <td>61999999999</td>
-                <td>Brasília</td>
-                <td>QNF 09 Lote 40</td>
-            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
