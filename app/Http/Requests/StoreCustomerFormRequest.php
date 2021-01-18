@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NewCustomerFormRequest extends FormRequest
+class StoreCustomerFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +26,10 @@ class NewCustomerFormRequest extends FormRequest
         return [
             'nome' => 'max:60|min:4|required',
             'razao' => 'max:60|min:4|required',
-            'cpf_cnpj' => 'digits_between:11,14|required|unique:customers,cpf_cnpj',
-            'email' => 'email',
+            'cpf_cnpj' => "digits_between:11,14|required|unique:customers,cpf_cnpj,$this->id",
+            'email' => 'email|nullable',
             'telefone' => 'digits_between:10,11|required',
-            'cep' => 'digits:8',
+            'cep' => 'digits:8|nullable',
             'uf' => 'max:2|required',
             'cidade' => 'max:60|min:4|required',
             'endereco' => 'min:4|required'

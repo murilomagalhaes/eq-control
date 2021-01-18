@@ -10725,4 +10725,16 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+/* Hide arrows from number input */
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

@@ -11,8 +11,8 @@
 <div class="row p-2 border rounded-3 mb-4 shadow-sm">
     <div class="col-12">
         <div class="d-flex align-items-center justify-content-between">
-            <h1 class="h4 my-3 me-3"> Cadastro de Clientes </h1>
-            <a class="btn btn-outline-primary d-flex align-items-center" href="{{route('cadastros.cliente.incluir')}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+            <h1 class="h4 my-3 me-3"> Cadastro de Usuarios </h1>
+            <a class="btn btn-outline-primary d-flex align-items-center" href="{{route('cadastros.usuario.incluir')}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#plus-square')}}" />
                 </svg> Incluir</a>
 
@@ -32,10 +32,10 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse {{isset($search) ? 'collapse show' : 'collapse'}}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <form action="{{route('cadastros.cliente.buscar')}}" method="GET">
+                        <form action="{{route('cadastros.usuario.buscar')}}" method="GET">
 
                             <div class="input-group my-2">
-                                <input type="text" name="q" class="form-control me-2" placeholder="Pesquisa por nome, razão social, ou CNPJ" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{isset($search) ? $search : ''}}">
+                                <input type="text" name="q" class="form-control me-2" placeholder="Pesquisa por nome, CPF, ou email" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{isset($search) ? $search : ''}}">
                                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar</button>
                             </div>
 
@@ -63,22 +63,21 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
-                <th scope="col">CPF/CNPJ</th>
-                <th scope="col">Telefone</th>
-                <th scope="col">Cidade</th>
-                <th scope="col">Endereço</th>
+                <th scope="col">Login</th>
+                <th scope="col">Email</th>
+                <th scope="col">CPF</th>
+
             </tr>
         </thead>
         <tbody>
-            @foreach($customers as $i => $customer)
+            @foreach($users as $i => $user)
 
-            <tr data-href="{{route('cadastros.cliente.mostrar', $customer)}}">
+            <tr data-href="{{route('cadastros.usuario.mostrar', $user)}}">
                 <th scope="row">{{$i+1}}</th>
-                <td>{{$customer->nome}}</td>
-                <td>{{$customer->cpf_cnpj}}</td>
-                <td>{{$customer->telefone}}</td>
-                <td>{{$customer->cidade}}</td>
-                <td>{{$customer->endereco}}</td>
+                <td>{{$user->nome}}</td>
+                <td>{{$user->login}}</td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->cpf}}</td>
             </tr>
 
             @endforeach
