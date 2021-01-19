@@ -22,8 +22,8 @@
                             <li class="mb-2">
                                 <hr class="dropdown-divider"> <span class="m-3 fw-bold">Equipamentos:</span>
                             </li>
-                            <li><a class="dropdown-item" href="#">Marca</a></li>
-                            <li><a class="dropdown-item" href="#">Tipo</a></li>
+                            <li><a class="dropdown-item {{strpos(Request::path(), '/marca') ? 'active' : ''}}" href="{{route('cadastros.marca')}}">Marca</a></li>
+                            <li><a class="dropdown-item {{strpos(Request::path(), '/tipo') ? 'active' : ''}}" href="{{route('cadastros.tipo')}}">Tipo</a></li>
                         </ul>
                     </li>
                 </ul>

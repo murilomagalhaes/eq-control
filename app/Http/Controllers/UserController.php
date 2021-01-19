@@ -28,6 +28,7 @@ class UserController extends Controller
         //If it's an update...
         if ($request->id) {
             $user = User::find($request->id);
+
             $form_data = [
                 'nome' => $validated['nome'],
                 'cpf' => $validated['cpf'],
@@ -36,7 +37,7 @@ class UserController extends Controller
             ];
 
             // Checks if password have been changed
-            if($validated['password']){
+            if(isset($validated['password'])){
                 $form_data['password'] = Hash::make($validated['password']);
             }
 
