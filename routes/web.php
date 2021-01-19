@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{BrandController, CustomerController, DashboardController, EquipmentTypeController};
+use App\Http\Controllers\{BrandController, CustomerController, DashboardController, EquipmentTypeController, RegistryController};
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,5 +46,5 @@ Route::group(['prefix' => '/cadastros'], function () {
 });
 
 Route::group(['prefix' => '/registros'], function () {
-    //
+    Route::get('/', [RegistryController::class, 'index'])->name('registros');
 });
