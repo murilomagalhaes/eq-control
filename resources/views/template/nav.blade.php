@@ -28,7 +28,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{Route::is('registros') ? 'active' : ''}}" aria-current="page" href="{{route('registros')}}">Registros</a>
+                    <a class="nav-link {{strpos(Request::path(), 'registros') !== false ? 'active' : ''}}" aria-current="page" href="{{route('registros')}}">Registros</a>
                 </li>
             </ul>
 

@@ -20,6 +20,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::group(['prefix' => '/cadastros'], function () {
 
     Route::get('/clientes', [CustomerController::class, 'index'])->name('cadastros.cliente');
+    Route::get('/clientes/ajax', [CustomerController::class, 'ajax'])->name('cadastros.clientes.ajax');
     Route::get('/clientes/buscar', [CustomerController::class, 'search'])->name('cadastros.cliente.buscar');
     Route::get('/clientes/incluir', [CustomerController::class, 'form'])->name('cadastros.cliente.incluir');
     Route::get('/clientes/{customer}', [CustomerController::class, 'show'])->name('cadastros.cliente.mostrar');
@@ -47,4 +48,5 @@ Route::group(['prefix' => '/cadastros'], function () {
 
 Route::group(['prefix' => '/registros'], function () {
     Route::get('/', [RegistryController::class, 'index'])->name('registros');
+    Route::get('/incluir', [RegistryController::class, 'form'])->name('registros.incluir');
 });

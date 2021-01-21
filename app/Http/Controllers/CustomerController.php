@@ -19,6 +19,17 @@ class CustomerController extends Controller
         return view('customers.form');
     }
 
+    public function ajax(Request $request)
+    {
+
+        $data = Customer::select("id", "nome")
+            ->where('nome', 'LIKE', "%$request->cliente%")
+            ->get();
+
+
+        return response()->json($data);
+    }
+
     public function store(StoreCustomerFormRequest $request)
     {
         $validated = $request->validated();
