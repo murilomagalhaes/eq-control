@@ -17,4 +17,8 @@ class RegistryController extends Controller
         return view('registries.form');
     }
 
+    public function store(Request $request)
+    {
+        dd($request);
+    }
 }

@@ -4,23 +4,30 @@
 
 <style>
     .select2-selection__rendered {
-        line-height: 38px !important;
+        line-height: 20px !important;
         margin-top: 0.5em;
+        margin-bottom: 0.5em;
 
     }
 
     .select2-container .select2-selection--single {
-        height: 38px !important;
+        height: 36px !important;
         margin-top: 0.5em;
+        margin-bottom: 0.5em;
     }
 
     .select2-selection__arrow {
-        height: 38px !important;
+        height: 36px !important;
         margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
+    .select2 {
+        width: 100% !important;
     }
 </style>
 
-<form action="{{route('cadastros.cliente.gravar')}}" method="POST" id="customer_form">
+<form action="{{route('registros.gravar')}}" method="POST" id="customer_form">
 
     @csrf
 
@@ -80,44 +87,107 @@
         </div>
 
     </div>
-
+    @if($errors->any())
     <div class="row my-4">
-        @if($errors->any())
+
         <div class="alert alert-danger shadow-sm">
             <ul class="m-auto p-auto">
                 @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
                 @endforeach
             </ul>
+
         </div>
-        @endif
     </div>
+    @endif
 
-    <div class="row justify-content-around">
 
-        <div class="row mb-2">
-            <div class="form-group col-lg-3">
-                <label for="dt_entrada">Data da entrada<span class="text-danger"> *</span></label>
-                <input type="datetime-local" name="dt_entrada" id="dt_entrada" class="form-control my-2" minlength="4" maxlength="40" value="{{old('dt_entrada')}}{{isset($equipment_type->dt_entrada) && !old('dt_entrada') ? $equipment_type->dt_entrada : ''}}" placeholder="Ex: Computadores" required>
-            </div>
+    <div class="row justify-content-around px-2 py-4 border rounded-3 my-4 shadow-sm">
 
-            <div class="form-group col-lg-3">
-                <label for="dt_previsao">Previsão de entrega<span class="text-danger"> *</span></label>
-                <input type="datetime-local" name="dt_previsao" id="dt_previsao" class="form-control my-2" minlength="4" maxlength="40" value="{{old('dt_previsao')}}{{isset($equipment_type->dt_previsao) && !old('dt_previsao') ? $equipment_type->dt_previsao : ''}}" placeholder="Ex: Computadores" required>
-            </div>
+        <div class="row my-2">
+
+            <h4>Cliente:
+                <hr>
+            </h4>
 
             <div class="form-group col-lg-6">
                 <label for="cliente">Cliente<span class="text-danger"> *</span></label>
-                <select name="cliente" id="cliente" name="cliente" class="form-select m-auto    ">
+                <select name="cliente" id="cliente" class="cliente form-select mb-2" required>
                     <option value="" id></option>
 
                 </select>
             </div>
+
+            <div class="form-group col-lg-4">
+                <label for="contato">Nome<span class="text-danger"> *</span></label>
+                <input type="text" name="contato" id="contato" class="form-control my-2" placeholder="Quem entregou equipamentos." required>
+            </div>
+
+            <div class="form-group col-lg-2">
+                <label for="telefone">Telefone<span class="text-danger my-2"> *</span></label>
+                <input type="text" name="telefone" id="telefone" class="form-control my-2" onkeypress="return onlyNumbers(event)" placeholder="Ex: 6133330000" minlength="10" maxlength="11" required>
+            </div>
+
+
         </div>
 
-        <hr class="my-4">
+        <div class="row my-2">
+            <h4>Datas:
+                <hr>
+            </h4>
+            <div class="form-group col-lg-3">
+                <label for="dt_entrada">Data/Hora da entrada<span class="text-danger"> *</span></label>
+                <input type="datetime-local" name="dt_entrada" id="dt_entrada" class="form-control my-2" minlength="4" maxlength="40" value="{{old('dt_entrada')}}{{isset($registry->dt_entrada) && !old('dt_entrada') ? $registry->dt_entrada : substr(str_replace(' ', 'T', now()), 0, -3) }}" placeholder="Ex: Computadores" required>
+            </div>
+
+            <div class="form-group col-lg-3">
+                <label for="dt_previsao">Previsão de entrega<span class="text-danger"> *</span></label>
+                <input type="datetime-local" name="dt_previsao" id="dt_previsao" class="form-control my-2" minlength="4" maxlength="40" value="{{old('dt_previsao')}}{{isset($registry->dt_previsao) && !old('dt_previsao') ? $registry->dt_previsao : substr(str_replace(' ', 'T', now()->addDays(1)), 0, -3) }}" placeholder="Ex: Computadores" required>
+            </div>
+
+        </div>
+
+
+        <div class="row my-2">
+            <h4>Equipamentos:
+                <hr>
+            </h4>
+
+            EM DESENVOLVIMENTO
+
+        </div>
+
+        <div class="row my-2">
+            <h4>Responsável Técnico:
+                <hr>
+            </h4>
+
+            <div class="form-group col-lg-8">
+                <label for="Responsável">Responsável<span class="text-danger"> *</span></label>
+                <select name="Responsável" id="Responsável" class="responsavel form-select mb-2" required>
+                    <option value="" id></option>
+
+                </select>
+            </div>
+
+            <div class="form-group col-lg-4">
+                <label for="Prioridade">Prioridade<span class="text-danger"> *</span></label>
+                <select name="Prioridade" id="Prioridade" class="form-select my-2" required>
+                    <option value="1" class="text-secondary" id>Baixa</option>
+                    <option value="2" class="text-primary" selected id>Média</option>
+                    <option value="3" class="text-warning"id>Alta</option>
+                    <option value="4" class="text-danger" id>Crítica</option>
+
+                </select>
+            </div>
+
+        </div>
+
+
 
     </div>
+
+    <hr class="my-4">
 
 
 
@@ -133,10 +203,13 @@
 
 <script>
     $(document).ready(function() {
-        $('.form-select').select2();
+        $('.responsavel').select2();
 
-        $('.form-select').select2({
+        $('.cliente').select2();
+
+        $('.cliente').select2({
             width: "resolve",
+            placeholder: "Cliente/empresa cadastrada.",
             ajax: {
                 url: "{{route('cadastros.clientes.ajax')}}",
                 dataType: 'json',
@@ -145,7 +218,7 @@
                     return {
                         results: $.map(data, function(item) {
                             return {
-                                text: item.nome,
+                                text: item.cpf_cnpj + ' - ' + item.nome,
                                 id: item.id
                             }
                         })

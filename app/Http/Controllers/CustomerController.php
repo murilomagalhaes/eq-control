@@ -21,11 +21,16 @@ class CustomerController extends Controller
 
     public function ajax(Request $request)
     {
+        $data = [];
 
-        $data = Customer::select("id", "nome")
-            ->where('nome', 'LIKE', "%$request->cliente%")
-            ->get();
-
+        if (! $request->has('q')) {
+            $data = Customer::select('id', 'nome', 'cpf_cnpj')->limit(10)->get();
+        } else {
+            $data = Customer::select('id', 'nome', 'cpf_cnpj')
+                ->where('nome', 'LIKE', "%$request->q%")
+                ->limit(10)
+                ->get();
+        }
 
         return response()->json($data);
     }

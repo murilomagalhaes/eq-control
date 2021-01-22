@@ -49,4 +49,5 @@ Route::group(['prefix' => '/cadastros'], function () {
 Route::group(['prefix' => '/registros'], function () {
     Route::get('/', [RegistryController::class, 'index'])->name('registros');
     Route::get('/incluir', [RegistryController::class, 'form'])->name('registros.incluir');
+    Route::post('/gravar', [RegistryController::class, 'store'])->name('registros.gravar');
 });
