@@ -27,6 +27,7 @@ Route::group(['prefix' => '/cadastros'], function () {
     Route::post('/clientes/gravar', [CustomerController::class, 'store'])->name('cadastros.cliente.gravar');
 
     Route::get('/usuarios', [UserController::class, 'index'])->name('cadastros.usuario');
+    Route::get('/usuarios/ajax', [UserController::class, 'ajax'])->name('cadastros.usuario.ajax');
     Route::get('/usuarios/buscar', [UserController::class, 'search'])->name('cadastros.usuario.buscar');
     Route::get('/usuarios/incluir', [UserController::class, 'form'])->name('cadastros.usuario.incluir');
     Route::get('/usuarios/{user}', [UserController::class, 'show'])->name('cadastros.usuario.mostrar');
@@ -49,5 +50,6 @@ Route::group(['prefix' => '/cadastros'], function () {
 Route::group(['prefix' => '/registros'], function () {
     Route::get('/', [RegistryController::class, 'index'])->name('registros');
     Route::get('/incluir', [RegistryController::class, 'form'])->name('registros.incluir');
-    Route::post('/gravar', [RegistryController::class, 'store'])->name('registros.gravar');
+    Route::post('/incluir/equipamento/1', [RegistryController::class, 'addRegistry'])->name('registros.incluir');
+    Route::post('/incluir/teste', [RegistryController::class, 'addEquipment'])->name('registros.incluir.teste');
 });

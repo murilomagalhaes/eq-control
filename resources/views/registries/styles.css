@@ -1,6 +1,5 @@
-@import "~bootstrap";
+/* Adjusts the Select2 input to match bootstrap's inputs size */
 
-    /* Adjusts the Select2 input to match bootstrap's inputs size */
     .select2-selection__rendered {
         line-height: 19px !important;
         margin-top: 0.5em;

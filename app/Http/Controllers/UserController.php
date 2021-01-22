@@ -77,6 +77,22 @@ class UserController extends Controller
         ]);
     }
 
+    public function ajax(Request $request)
+    {
+        $data = [];
+
+        if (! $request->has('q')) {
+            $data = User::select('id', 'nome')->limit(10)->get();
+        } else {
+            $data = User::select('id', 'nome')
+                ->where('nome', 'LIKE', "%$request->q%")
+                ->limit(10)
+                ->get();
+        }
+
+        return response()->json($data);
+    }
+
     public function show(User $user)
     {
         return view('users.form')

@@ -2,7 +2,6 @@
 @section('title') {{isset($user->id) ? 'Cadastro de Usuarios' : 'Novo Usuario'}} @endsection
 @section('content')
 <form action="{{route('cadastros.usuario.gravar')}}" method="POST" id="customer_form">
-
     @csrf
 
     @if(isset($user->id))
@@ -18,7 +17,6 @@
         <div class="col-md-4 text-wrap float-end my-2">
 
             @if(Route::is('cadastros.usuario.incluir'))
-
             <div class="d-flex align-items-center float-end">
 
                 <a class="btn btn-outline-danger d-flex align-items-center me-2" href="{{route('cadastros.usuario')}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
@@ -28,8 +26,8 @@
                 <button class="btn btn-outline-success d-flex align-items-center" type="submit"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                         <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#save')}}" />
                     </svg>Gravar</button>
-            </div>
 
+            </div>
             @else(Route::is('cadastros.usuario.mostrar'))
 
             <div class="d-flex flex-wrap align-items-center float-end">
@@ -54,16 +52,14 @@
                 </div>
 
             </div>
-
-
             @endif
 
         </div>
 
     </div>
 
+    @if($errors->any())
     <div class="row my-4">
-        @if($errors->any())
         <div class="alert alert-danger shadow-sm">
             <ul class="m-auto p-auto">
                 @foreach ($errors->all() as $error)
@@ -71,9 +67,8 @@
                 @endforeach
             </ul>
         </div>
-        @endif
-
     </div>
+    @endif
 
     <div class="row justify-content-around">
 
@@ -117,59 +112,13 @@
             </div>
         </div>
 
-
-
         <hr class="my-4">
 
     </div>
 
 </form>
-
 @endsection
 
 @section('scripts')
-<script>
-    // Permitir apenas numeros em inputs
-    function onlyNumbers(evt) {
-        let charCode = (evt.which) ? evt.which : evt.keyCode
-        if (charCode > 31 && (charCode < 48 || charCode > 57))
-            return false;
-        return true;
-    }
-
-    // Habilita inputs
-    function enableInputs() {
-
-        let inputs = document.getElementsByTagName("input");
-
-        for (i = 0; i < inputs.length; i++) {
-            inputs[i].disabled = false;
-        }
-
-        document.getElementById('edit-btn').remove()
-
-        let save_edit_div = document.getElementById('save-edit-div');
-        save_edit_div.innerHTML = "<button class='btn btn-outline-success d-flex align-items-center' type='submit' id='edit-btn'>" +
-            "<svg class='bi me-2' width='20' height='20' fill='currentColor'>" +
-            "<use xlink:href='{{asset('dist/icons/bootstrap-icons.svg#save')}}' />" +
-            "</svg>Gravar</button>";
-
-    }
-</script>
-
-@if(Route::is('cadastros.usuario.mostrar') && !$errors->any())
-<script>
-    // Desabilita inputs ao mostrar cadastro.
-    var inputs = document.getElementsByTagName("input");
-    for (i = 0; i < inputs.length; i++) {
-        inputs[i].disabled = true;
-    }
-</script>
-@elseif($errors->any())
-<script>
-    enableInputs();
-</script>
-@endif
-
-
+@include('users.scripts')
 @endsection

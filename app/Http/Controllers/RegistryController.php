@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use App\Http\Requests\RegistryFormRequest;
 use Illuminate\Http\Request;
 
 class RegistryController extends Controller
@@ -17,8 +17,17 @@ class RegistryController extends Controller
         return view('registries.form');
     }
 
-    public function store(Request $request)
+    public function addEquipment(Request $request)
     {
-        dd($request);
+        $request->session()->reflash();
+        dd($request->session()->getOldInput());
+    }
+
+    public function addRegistry(RegistryFormRequest $request)
+    {
+        $request->validated();
+        $request->input()->flash();
+
+        return view('registries.equipments.form');
     }
 }

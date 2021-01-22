@@ -21,7 +21,7 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            "nome" => "required|min:4|max:40|unique:brands,nome,$request->id"
+            "nome" => "required|min:2|max:40|unique:brands,nome,$request->id"
         ], [
             'nome.unique' => "O nome '$request->nome' já está sendo utilizado em outro cadastro."
         ]);
