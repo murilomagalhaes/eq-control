@@ -37,7 +37,7 @@ class UserController extends Controller
             ];
 
             // Checks if password have been changed
-            if(isset($validated['password'])){
+            if (isset($validated['password'])) {
                 $form_data['password'] = Hash::make($validated['password']);
             }
 
@@ -77,11 +77,20 @@ class UserController extends Controller
         ]);
     }
 
-    public function ajax(Request $request)
+    public function ajax(Request $request, int $id = 0)
     {
         $data = [];
 
-        if (! $request->has('q')) {
+        if ($id) {
+
+            $data = User::select('id', 'nome')
+                ->where('id', $id)
+                ->first();
+
+            return response()->json($data);
+        }
+
+        if (!$request->has('q')) {
             $data = User::select('id', 'nome')->limit(10)->get();
         } else {
             $data = User::select('id', 'nome')

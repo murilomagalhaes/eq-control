@@ -33,4 +33,11 @@ class RegistryFormRequest extends FormRequest
             'prioridade' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'dt_previsao.after' => 'A data de previsão deve ser posterior a data de entrada.'
+        ];
+    }
 }

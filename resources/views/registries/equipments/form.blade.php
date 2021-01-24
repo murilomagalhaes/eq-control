@@ -1,7 +1,8 @@
 @extends('template.base')
-@section('title') {{isset($customer->id) ? 'Registro de Equipamentos' : 'Novo Registro'}} @endsection
+@section('title') {{isset($customer->id) ? 'Registro de Equipamentos' : 'Novo Registro > Equipamento'}} @endsection
 @section('content')
-<form action="{{route('registros.incluir.teste')}}" method="POST" id="customer_form">
+
+<form action="{{route('registros.gravar')}}" method="POST" id="customer_form">
     @csrf
 
     @if(isset($customer->id))
@@ -16,23 +17,25 @@
 
         <div class="col-md-4 text-wrap float-end my-2">
 
-            @if(Route::is('registros.incluir'))
+            @if(Route::is('registros.equipamento.incluir'))
             <div class="d-flex align-items-center float-end">
 
-                <a class="btn btn-outline-danger d-flex align-items-center me-2" href="{{route('cadastros.cliente')}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
-                        <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#backspace')}}" />
-                    </svg>Cancelar</a>
+                <div class="me-2 my-1">
+                    <a class="btn btn-outline-secondary d-flex align-items-center" href="{{url()->previous()}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                            <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#backspace')}}" />
+                        </svg>Voltar</a>
+                </div>
 
-                <button class="btn btn-outline-success d-flex align-items-center" type="submit"> Add. Equipamentos <svg class="bi ms-2" width="20" height="20" fill="currentColor">
-                        <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#arrow-right-square')}}" />
+                <button class="btn btn-outline-success d-flex align-items-center" type="submit"> Gravar <svg class="bi ms-2" width="20" height="20" fill="currentColor">
+                        <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#save')}}" />
                     </svg></button>
             </div>
-            @else(Route::is('cadastros.cliente.mostrar'))
+            @elseif(Route::is('equipmentos.registro.mostrar'))
 
             <div class="d-flex flex-wrap align-items-center float-end">
 
                 <div class="me-2 my-1">
-                    <a class="btn btn-outline-secondary d-flex align-items-center" href="" > <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                    <a class="btn btn-outline-secondary d-flex align-items-center" href=""> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                             <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#backspace')}}" />
                         </svg>Voltar</a>
                 </div>
@@ -89,31 +92,32 @@
                 <div class="form-group col-lg-12">
                     <label for="tipo">Tipo<span class="text-danger"> *</span></label>
                     <select name="tipo" id="tipo" class="tipo form-select mb-2" required>
-                        <option value="TIPO">TIPO</option>
-
                     </select>
                 </div>
 
                 <div class="form-group col-lg-12">
                     <label for="marca">Marca<span class="text-danger"> *</span></label>
                     <select name="marca" id="marca" class="marca form-select mb-2" required>
-                        <option value="MARCA">MARCA</option>
-
                     </select>
                 </div>
 
 
                 <div class="form-group col-lg-12">
-                    <label for="descricao">Descrição</label>
-                    <input type="text" name="descricao" id="descricao" placeholder="Ex: Computador branco " class="form-control my-2">
+                    <label for="descricao">Descrição <span class="text-danger"> *</span></label>
+                    <input type="text" name="descricao" id="descricao" placeholder="Ex: Computador branco." class="form-control my-2">
                 </div>
 
             </div>
 
             <div class="col-lg-7">
+                <div class="form-group col-lg-12">
+                    <label for="serie">Num. de Série</label>
+                    <input type="text" name="serie" id="serie" class="form-control my-2">
+                </div>
+
                 <div class="form-group">
-                    <label for="problemas">Problemas Apresentados</label>
-                    <textarea name="problemas" id="problemas" placeholder="Descreva brevemente o motivo da entrega do equipamento." rows="8" class="form-control my-2"></textarea>
+                    <label for="problemas">Problemas Apresentados <span class="text-danger"> *</span></label>
+                    <textarea name="problemas" id="problemas" placeholder="Descreva brevemente o motivo da entrega do equipamento." rows="5" class="form-control my-2"></textarea>
                 </div>
 
 
@@ -130,5 +134,5 @@
 @endsection
 
 @section('scripts')
-@include('registries.scripts')
+@include('registries.equipments.scripts')
 @endsection

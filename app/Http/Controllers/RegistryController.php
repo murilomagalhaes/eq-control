@@ -17,17 +17,23 @@ class RegistryController extends Controller
         return view('registries.form');
     }
 
-    public function addEquipment(Request $request)
+    public function addEquipment(RegistryFormRequest $request)
     {
-        $request->session()->reflash();
-        dd($request->session()->getOldInput());
-    }
 
-    public function addRegistry(RegistryFormRequest $request)
-    {
-        $request->validated();
-        $request->input()->flash();
+        /**
+         *  Validates, and stores the registry data to the session
+         *  and fowards it to the equipment form.
+         */
+
+        $validated = $request->validated();
+        session()->flash('registry', $validated);
 
         return view('registries.equipments.form');
+    }
+
+    public function store(Request $request)
+    {
+        session()->reflash('registry');
+        dd(session('registry'), $request);
     }
 }

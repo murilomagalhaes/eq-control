@@ -19,11 +19,20 @@ class CustomerController extends Controller
         return view('customers.form');
     }
 
-    public function ajax(Request $request)
+    public function ajax(Request $request, int $id = 0)
     {
         $data = [];
 
-        if (! $request->has('q')) {
+        if ($id) {
+            $data = Customer::select('id', 'nome', 'cpf_cnpj')
+                ->where('id', $id)
+                ->first();
+
+            return response()->json($data);
+        }
+
+
+        if (!$request->has('q')) {
             $data = Customer::select('id', 'nome', 'cpf_cnpj')->limit(10)->get();
         } else {
             $data = Customer::select('id', 'nome', 'cpf_cnpj')

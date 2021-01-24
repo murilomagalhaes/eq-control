@@ -1,7 +1,7 @@
 @extends('template.base')
 @section('title') {{isset($registry->id) ? 'Registro de Equipamentos' : 'Novo Registro'}} @endsection
 @section('content')
-<form action="{{route('registros.incluir')}}" method="POST" id="customer_form">
+<form action="{{route('registros.equipamento.incluir')}}" method="POST" id="customer_form">
     @csrf
 
     @if(isset($registry->id))
@@ -19,7 +19,7 @@
             @if(Route::is('registros.incluir'))
             <div class="d-flex align-items-center float-end">
 
-                <a class="btn btn-outline-danger d-flex align-items-center me-2" href="{{route('cadastros.cliente')}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                <a class="btn btn-outline-danger d-flex align-items-center me-2" href="{{route('registros')}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                         <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#backspace')}}" />
                     </svg>Cancelar</a>
 
@@ -84,18 +84,21 @@
             <div class="form-group col-lg-6">
                 <label for="cliente">Cliente<span class="text-danger"> *</span></label>
                 <select name="cliente" id="cliente" class="cliente form-select mb-2" required>
-                    <option value="" id></option>
+                    <option value=""></option>
+                    @if(old('cliente'))
+                    <option value="{{old('cliente')}}"></option>
+                    @endif
                 </select>
             </div>
 
             <div class="form-group col-lg-4">
                 <label for="nome">Nome<span class="text-danger"> *</span></label>
-                <input type="text" name="nome" id="nome" class="form-control my-2" placeholder="Quem entregou equipamento(s)." minlength="3" maxlength="40" value="{{old('nome')}}" required>
+                <input type="text" name="nome" id="nome" class="form-control my-2" placeholder="Quem entregou equipamento(s)." minlength="3" maxlength="40" value="{{old('nome')}}{{session('registry')['nome'] ?? ''}}" required>
             </div>
 
             <div class="form-group col-lg-2">
                 <label for="telefone">Telefone<span class="text-danger my-2"> *</span></label>
-                <input type="text" name="telefone" id="telefone" class="form-control my-2" onkeypress="return onlyNumbers(event)" placeholder="Ex: 6133330000" minlength="10" maxlength="11" value="{{old('telefone')}}" required>
+                <input type="text" name="telefone" id="telefone" class="form-control my-2" onkeypress="return onlyNumbers(event)" placeholder="Ex: 6133330000" minlength="10" maxlength="11" value="{{old('telefone')}}{{session('registry')['telefone'] ?? ''}}" required>
             </div>
 
         </div>
@@ -113,14 +116,14 @@
                 <div class="row">
                     <div class="form-group col-lg-12">
                         <label for="dt_entrada">Data/Hora da entrada<span class="text-danger"> *</span></label>
-                        <input type="datetime-local" name="dt_entrada" id="dt_entrada" class="form-control my-2" value="{{old('dt_entrada') ? substr(str_replace('T', ' ', old('dt_entrada')), 0, -3) : substr(str_replace(' ', 'T', now()), 0, -3)}}" readonly required>
+                        <input type="datetime-local" name="dt_entrada" id="dt_entrada" class="form-control my-2" value="{{old('dt_entrada') ? old('dt_entrada') : substr(str_replace(' ', 'T', now()), 0, -3)}}" readonly required>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-lg-12">
                         <label for="dt_previsao">Previsão de entrega</label>
-                        <input type="datetime-local" name="dt_previsao" id="dt_previsao" class="form-control my-2"  value="{{old('dt_previsao') ? substr(str_replace('T', ' ', old('dt_previsao')), 0, -3) : ''}}" >
+                        <input type="datetime-local" name="dt_previsao" id="dt_previsao" class="form-control my-2"  value="{{old('dt_previsao')}}{{session('registry')['dt_previsao'] ?? ''}}" >
                     </div>
                 </div>
 
@@ -139,18 +142,17 @@
                     <div class="form-group col-12">
                         <label for="Responsavel">Responsável<span class="text-danger"> *</span></label>
                         <select name="responsavel" id="responsavel" class="responsavel form-select mb-2"  required>
-                            <option value="" id></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-12">
-                        <label for="Prioridade">Prioridade<span class="text-danger"> *</span></label>
-                        <select name="prioridade" id="rioridade" class="form-select my-2" required>
-                            <option value="1" class="">Baixa</option>
-                            <option value="2" class="" selected>Média</option>
-                            <option value="3" class="">Alta</option>
+                        <label for="prioridade">Prioridade<span class="text-danger"> *</span></label>
+                        <select name="prioridade" id="prioridade" class="form-select my-2" required>
+                            <option value="1" >Baixa</option>
+                            <option value="2" selected >Média</option>
+                            <option value="3" >Alta</option>
                             <option value="4" class="text-danger">Crítica</option>
                         </select>
                     </div>
