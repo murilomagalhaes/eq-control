@@ -6,6 +6,10 @@
     tr[data-href] {
         cursor: pointer;
     }
+
+    #registry:hover {
+       opacity:0.6
+    }
 </style>
 
 <div class="row p-2 border rounded-3 mb-4 shadow-sm">
@@ -56,41 +60,83 @@
 </div>
 @endif
 
-<!--
-<div class="m-auto">
-    <table class="table table-responsive table-hover caption-top ">
-        <thead class="thead-light">
-            <caption>Listagem:</caption>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">CPF/CNPJ</th>
-                <th scope="col">Telefone</th>
-                <th scope="col">Cidade</th>
-                <th scope="col">Endereço</th>
-            </tr>
-        </thead>
-        
-    </table>
-</div> -->
+<div class="row">
+
+    @foreach($registries as $registry)
+    <div class="col-lg-4">
+
+        <div class="card p-0 my-3 shadow">
+            <a href="{{route('registros.mostrar', $registry)}}" class="text-decoration-none text-dark" id="registry">
+                <div class="card-body">
+                    <h5 class="card-title m-1 text-center">{{$registry->customer->nome}}</h5>
+                    <hr>
+                    <p class="card-text m-1 d-flex align-items-center">
+                        <svg class="bi me-2" width="18" height="18" fill="currentColor">
+                            <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#person-square')}}" />
+                        </svg>
+                        {{$registry->nome}}
+                    </p>
+                    <p class="card-text m-1 d-flex align-items-center">
+                        <svg class="bi me-2" width="18" height="18" fill="currentColor">
+                            <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#telephone')}}" />
+                        </svg> {{$registry->telefone}}
+                    </p>
+
+                    <p class="card-text m-1 d-flex align-items-center">
+                        <svg class="bi me-2" width="18" height="18" fill="currentColor">
+                            <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#laptop')}}" />
+                        </svg> {{$registry->equipments->count()}} equipamento(s).
+                    </p>
+
+                    <hr>
+
+                    <p class="card-text m-1 d-flex align-items-center justify-content-between">
+                        <span class="d-flex align-items-center"> <svg class="bi me-2" width="18" height="18" fill="currentColor">
+                                <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#calendar-plus')}}" />
+                            </svg> Entrada:</span>
+                        <span class="fw-bold"> {{$registry->getFormatedDateTime('dt_entrada')}} </span>
+                    </p>
+
+                    <p class="card-text m-1 d-flex align-items-center justify-content-between">
+                        <span class="d-flex align-items-center"> <svg class="bi me-2" width="18" height="18" fill="currentColor">
+                                <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#calendar-check')}}" />
+                            </svg> Previsão:</span>
+                        <span class="fw-bold"> {{$registry->getFormatedDateTime('dt_previsao')}} </span>
+                    </p>
+
+                </div>
 
 
+                @if($registry->prioridade == 1)
+                <div class="card-footer bg-secondary">
+                    <small class="text-light d-flex justify-content-between"> <span class="fw-bold"><span class="fw-bold">ID: {{$registry->id}} </span> Prioridade: Baixa</small>
+                </div>
+                @endif
+                @if($registry->prioridade == 2)
+                <div class="card-footer bg-primary">
+                    <small class="text-light d-flex justify-content-between"><span class="fw-bold">ID: {{$registry->id}}</span> Prioridade: Média</small>
+                </div>
+                @endif
+                @if($registry->prioridade == 3)
+                <div class="card-footer bg-warning">
+                    <small class="text-dark d-flex justify-content-between"><span class="fw-bold">ID: {{$registry->id}}</span> Prioridade: Alta</small>
+                </div>
+                @endif
+                @if($registry->prioridade == 4)
+                <div class="card-footer bg-danger">
+                    <small class="text-light d-flex justify-content-between"><span class="fw-bold">ID: {{$registry->id}}</span> Prioridade: Crítica</small>
+                </div>
+                @endif
+            </a>
+        </div>
 
-@endsection
+    </div>
 
-@section('scripts')
+    @endforeach
 
-<script>
 
-    // Add link to table row
-    document.addEventListener("DOMContentLoaded", () => {
-        const rows = document.querySelectorAll("tr[data-href]");
-        rows.forEach(row => {
-            row.addEventListener('click', () => {
-                window.location.href = row.dataset.href
-            })
-        })
-    })
-</script>
+</div>
+
+
 
 @endsection

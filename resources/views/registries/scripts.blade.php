@@ -52,6 +52,9 @@
     });
 </script>
 
+
+@if(old('cliente') || isset(session('registry')['cliente']) || old('responsavel') || isset(session('registry')['responsavel']) )
+
 @if(old('cliente') || isset(session('registry')['cliente']))
 <script>
     // Busca o cliente antigo e adiciona no select.
@@ -101,6 +104,12 @@
         });
     });
 </script>
+
+@php
+Session::forget('registry')
+@endphp
+
+@endif
 @endif
 
 <script>

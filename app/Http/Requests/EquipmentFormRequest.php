@@ -13,7 +13,7 @@ class EquipmentFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,8 @@ class EquipmentFormRequest extends FormRequest
             'marca' => 'required',
             'tipo' => 'required',
             'descricao' => 'required',
-            'problemas' => 'required'
+            'problemas' => 'required',
+            'num_serie' => 'nullable'
         ];
     }
 }

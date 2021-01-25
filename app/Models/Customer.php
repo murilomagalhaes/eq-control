@@ -12,4 +12,9 @@ class Customer extends Model
     protected $fillable = [
         'nome', 'razao', 'cpf_cnpj', 'email', 'telefone', 'cep', 'uf', 'cidade', 'endereco'
     ];
+
+    public function registry()
+    {
+        return $this->belongsToMany(Registry::class);
+    }
 }

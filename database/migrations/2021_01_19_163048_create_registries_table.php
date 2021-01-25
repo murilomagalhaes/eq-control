@@ -18,8 +18,8 @@ class CreateRegistriesTable extends Migration
             $table->foreignId('customer_id')->references('id')->on('customers');
             $table->string('nome', 40);
             $table->string('telefone', 11);
-            $table->date('dt_entrada');
-            $table->date('dt_previsao')->nullable();
+            $table->dateTime('dt_entrada');
+            $table->dateTime('dt_previsao')->nullable();
             $table->foreignId('responsavel_id')->references('id')->on('users');
             $table->string('prioridade', 1);
             $table->foreignId('created_by')->references('id')->on('users');
