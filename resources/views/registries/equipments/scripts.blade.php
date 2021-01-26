@@ -5,6 +5,26 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
+<!-- Submit forms with anchor tag -->
+
+
+<script>
+    function submitForm() {
+        let form = document.getElementById('registry_form');
+
+        let add_more = document.createElement("input");
+        add_more.name = "add_more";
+        add_more.type = "hidden";
+        add_more.value = "1";
+
+        console.log(add_more);
+
+        form.submit()
+
+    }
+</script> 
+
+
 <!-- Starting Select2 -->
 <script>
     $(document).ready(function() {
@@ -60,7 +80,6 @@
         type: 'GET',
         url: "{{route('cadastros.marca.ajax', old('marca'))}}"
     }).then(function(data) {
-        console.log(data);
         // create the option and append to Select2
         let option = new Option(data.nome, data.id, true, true);
         brandSelect.append(option).trigger('change');
@@ -76,7 +95,7 @@
 </script>
 @endif
 
-@if(old('tipol'))
+@if(old('tipo'))
 <script>
     // Busca o tipo antigo e adiciona no select.
     let typeSelect = $('.tipo');
@@ -84,7 +103,6 @@
         type: 'GET',
         url: "{{route('cadastros.tipo.ajax', old('tipo'))}}"
     }).then(function(data) {
-        console.log(data);
         // create the option and append to Select2
         let option = new Option(data.nome, data.id, true, true);
         typeSelect.append(option).trigger('change');
@@ -111,7 +129,6 @@
 
 
     // Habilita inputs
-
     function enableInputs() {
 
         let inputs = document.getElementsByTagName("input");

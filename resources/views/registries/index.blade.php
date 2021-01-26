@@ -108,12 +108,12 @@
 
 
                 @if($registry->prioridade == 1)
-                <div class="card-footer bg-secondary">
+                <div class="card-footer bg-primary">
                     <small class="text-light d-flex justify-content-between"> <span class="fw-bold"><span class="fw-bold">ID: {{$registry->id}} </span> Prioridade: Baixa</small>
                 </div>
                 @endif
                 @if($registry->prioridade == 2)
-                <div class="card-footer bg-primary">
+                <div class="card-footer bg-secondary">
                     <small class="text-light d-flex justify-content-between"><span class="fw-bold">ID: {{$registry->id}}</span> Prioridade: Média</small>
                 </div>
                 @endif

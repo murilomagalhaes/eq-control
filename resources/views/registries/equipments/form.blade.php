@@ -2,7 +2,7 @@
 @section('title') {{isset($customer->id) ? 'Registro de Equipamentos' : 'Novo Registro > Equipamento'}} @endsection
 @section('content')
 
-<form action="{{route('registros.gravar')}}" method="POST" id="customer_form">
+<form action="{{route('registros.gravar')}}" method="POST" id="registry_form">
     @csrf
 
     @if(isset($customer->id))
@@ -36,14 +36,14 @@
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#save')}}" />
                                 </svg>Gravar</button></li>
 
-                        <li><a class="dropdown-item" href="#"><svg class="bi me-2" width="20" height="20" fill="currentColor">
+                        <li><button class="dropdown-item"><svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
-                                </svg>Gravar e Imprimir Comprovante</a></li>
+                                </svg>Gravar e Imprimir Comprovante</button></li>
 
 
-                        <li><a class="dropdown-item" href="#"><svg class="bi me-2" width="20" height="20" fill="currentColor">
+                        <li><button class="dropdown-item" id="submit_and_add" type="button" onclick="submitForm()"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#plus-square')}}" />
-                                </svg>Gravar e Adicionar Outro Equipamento</a></li>
+                                </svg>Gravar e Adicionar Outro Equipamento</button></li>
                     </ul>
                 </div>
 
@@ -123,7 +123,7 @@
 
                 <div class="form-group col-lg-12">
                     <label for="descricao">Descrição <span class="text-danger"> *</span></label>
-                    <input type="text" name="descricao" id="descricao" placeholder="Ex: Computador branco." class="form-control my-2">
+                    <input type="text" name="descricao" id="descricao" placeholder="Ex: Computador branco." class="form-control my-2" required>
                 </div>
 
             </div>
@@ -136,7 +136,7 @@
 
                 <div class="form-group">
                     <label for="problemas">Problemas Apresentados <span class="text-danger"> *</span></label>
-                    <textarea name="problemas" id="problemas" placeholder="Descreva brevemente o motivo da entrega do equipamento." rows="5" class="form-control my-2"></textarea>
+                    <textarea name="problemas" id="problemas" placeholder="Descreva brevemente o motivo da entrega do equipamento." rows="5" class="form-control my-2" required>{{old('problemas')}}</textarea>
                 </div>
 
 
@@ -154,4 +154,6 @@
 
 @section('scripts')
 @include('registries.equipments.scripts')
+
+
 @endsection

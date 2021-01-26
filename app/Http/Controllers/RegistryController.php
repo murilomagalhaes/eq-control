@@ -39,6 +39,7 @@ class RegistryController extends Controller
 
     public function store(EquipmentFormRequest $request)
     {
+
         //Revalidates registry stored in session
         Validator::make(
             session('registry'),
@@ -69,7 +70,7 @@ class RegistryController extends Controller
                 'nome' => $registry->nome,
                 'telefone' => $registry->telefone,
                 'dt_entrada' => Carbon::parse($registry->dt_entrada),
-                'dt_previsao' => Carbon::parse($registry->dt_previsao),
+                'dt_previsao' => $registry->dt_previsao ? Carbon::parse($registry->dt_previsao) : null,
                 'responsavel_id' => $registry->responsavel,
                 'prioridade' => $registry->prioridade,
                 'created_by' => $registry->responsavel

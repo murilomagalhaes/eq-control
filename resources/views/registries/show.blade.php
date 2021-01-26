@@ -1,5 +1,5 @@
 @extends('template.base')
-@section('title') Registro: {{$registry->customer->nome}}@endsection
+@section('title') Registro: {{$registry->id}}@endsection
 
 @section('content')
 
@@ -23,16 +23,17 @@
                         <li><a class="dropdown-item" href="#">Imprimir</a></li>
                     </ul>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 
-<div class="row d-flex justify-contents-around">
+<div class="row d-flex justify-contents-around align-items-center">
 
     <div class="col-lg-4">
         <div class="border rounded-3 my-2 p-3 shadow-sm">
-            <div class="d-inline-flex align-items-center mb-4">
+            <div class="d-inline-flex align-items-center mb-2">
                 <svg class="bi me-3 " width="22px" height="22px" fill="currentColor">
                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#person-square')}}" />
                 </svg>
@@ -48,7 +49,7 @@
 
     <div class="col-lg-4">
         <div class="border rounded-3 my-2 p-3 shadow-sm">
-            <div class="d-inline-flex align-items-center mb-4">
+            <div class="d-inline-flex align-items-center mb-2">
                 <svg class="bi me-3 " width="22px" height="22px" fill="currentColor">
                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#calendar-event')}}" />
                 </svg>
@@ -63,7 +64,7 @@
 
     <div class="col-lg-4">
         <div class="border rounded-3 my-2 p-3 shadow-sm">
-            <div class="d-inline-flex align-items-center mb-4">
+            <div class="d-inline-flex align-items-center mb-2">
                 <svg class="bi me-3 " width="22px" height="22px" fill="currentColor">
                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#wrench')}}" />
                 </svg>
@@ -75,11 +76,11 @@
                 <div class="d-flex justify-content-between"> <span class="fw-bold"> Prioridade: </span>
 
                     @if($registry->prioridade == 1)
-                    <span class="text-secondary">Baixa</span>
+                    <span class="text-primary">Baixa</span>
                     @endif
 
                     @if($registry->prioridade == 2)
-                    <span class="text-primary">Média</span>
+                    <span class="text-secondary">Média</span>
                     @endif
 
                     @if($registry->prioridade == 3)
@@ -98,22 +99,37 @@
 
 @foreach($registry->equipments as $i => $equipment)
 <div class="row p-0 m-0">
+
     <div class="col-12 border rounded-3 my-2 m-auto p-3 shadow-sm">
-        <div class="d-inline-flex align-items-center m-2">
-            <svg class="bi me-3 " width="22px" height="22px" fill="currentColor">
-                <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#laptop')}}" />
-            </svg>
-            <h2 class="h5 my-0">Equipamento {{$i + 1}}: <span class="text-primary">{{$equipment->descricao}}</span></h2>
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-inline-flex align-items-center">
+                <svg class="bi me-3 " width="22px" height="22px" fill="currentColor">
+                    <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#laptop')}}" />
+                </svg>
+                <h2 class="h5 my-0">Equipamento {{$i + 1}}: <span class="text-primary">{{$equipment->descricao}}</span></h2>
+            </div>
+
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Ações
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Editar</a></li>
+                    <li><a class="dropdown-item" href="#">Apagar</a></li>
+                    <li><a class="dropdown-item" href="#">Imprimir</a></li>
+                </ul>
+            </div>
         </div>
 
         <div class="p-2">
-            {{$equipment->type->nome}}
-            {{$equipment->brand->nome}}
-            {{$equipment->descricao}}
-            {{$equipment->num_serie}}
-            {{$equipment->problemas}}
-
+            <div> <span class="fw-bold"> Tipo: </span>{{$equipment->type->nome}}</div>
+            <div> <span class="fw-bold"> Marca: </span> {{$equipment->brand->nome}}</div>
+            <div> <span class="fw-bold"> Num. de Série: </span> {{$equipment->num_serie}}</div>
+            <hr>
+            <span class="fw-bold"> Probleamas: </span>
+            <div> {{$equipment->problemas}}</div>
         </div>
+
     </div>
 </div>
 @endforeach

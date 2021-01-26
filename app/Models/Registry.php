@@ -22,18 +22,21 @@ class Registry extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function responsavel(){
+    public function responsavel()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function getFormatedDateTime($attr)
+    public function getFormatedDateTime(string $attr): String|null
     {
-        if ($attr === 'dt_previsao') {
+        if ($attr === 'dt_previsao' && $this->attributes['dt_previsao']) {
             $date = Carbon::parse($this->attributes['dt_previsao']);
-            return $date->format('d/m/Y');
-        } else {
+            return $date->format('d/m/Y H:i');
+        } else if ($attr === 'dt_entrada' && $this->attributes['dt_entrada']) {
             $date = Carbon::parse($this->attributes['dt_entrada']);
-            return $date->format('d/m/Y');
+            return $date->format('d/m/Y H:i');
         }
+
+        return null;
     }
 }

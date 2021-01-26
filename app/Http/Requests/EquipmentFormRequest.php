@@ -28,7 +28,8 @@ class EquipmentFormRequest extends FormRequest
             'tipo' => 'required',
             'descricao' => 'required',
             'problemas' => 'required',
-            'num_serie' => 'nullable'
+            'serie' => 'nullable',
+            'add_more' => 'nullable|boolean'
         ];
     }
 }
