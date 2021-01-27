@@ -64,7 +64,6 @@
         type: 'GET',
         url: "{{route('cadastros.cliente.ajax', session('registry')['cliente'] ?? old('cliente'))}}"
     }).then(function(data) {
-        console.log(data);
         // create the option and append to Select2
         let option = new Option(data.cpf_cnpj + ' - ' + data.nome, data.id, true, true);
         customerSelect.append(option).trigger('change');
@@ -90,7 +89,6 @@
         type: 'GET',
         url: "{{route('cadastros.usuario.ajax', session('registry')['responsavel'] ?? old('responsavel'))}}"
     }).then(function(data) {
-        console.log(data);
         // create the option and append to Select2
         let option = new Option(data.nome, data.id, true, true);
         userSelect.append(option).trigger('change');

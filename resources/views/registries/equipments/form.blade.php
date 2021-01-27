@@ -2,18 +2,37 @@
 @section('title') {{isset($customer->id) ? 'Registro de Equipamentos' : 'Novo Registro > Equipamento'}} @endsection
 @section('content')
 
-<form action="{{route('registros.gravar')}}" method="POST" id="registry_form">
-    @csrf
+<style>
+    .was-validated .form-select:invalid+.select2 .select2-selection {
+        border-color: #dc3545 !important;
+    }
 
-    @if(isset($customer->id))
-    <input type="hidden" value="{{$customer->id}}" name="id">
-    @endif
+    .was-validated .form-select:valid+.select2 .select2-selection {
+        border-color: #1e7b34 !important;
+    }
+
+    *:focus {
+        outline: 0px;
+    }
+</style>
+
+
+<form action="{{route('registros.gravar')}}" method="POST" id="registry_form" novalidate>
+    @csrf
 
     <div class="row p-2 border rounded-3 mb-4 shadow-sm">
 
+        @if(session('registry_id'))
         <div class="col-md-8 d-flex align-items-center">
-            <h1 class="h4 my-2"> {{isset($customer->id) ? $customer->nome : 'Novo Registro > Equipamento'}} </h1>
+            <h1 class="h4 my-2">Registro: {{session('registry_id')}} > Novo equipamento </h1>
         </div>
+
+        @else
+        <div class="col-md-8 d-flex align-items-center">
+            <h1 class="h4 my-2">Novo Registro > Equipamento</h1>
+        </div>
+        @endif
+
 
         <div class="col-md-4 text-wrap float-end my-2">
 
@@ -27,23 +46,23 @@
                 </div>
 
                 <div class="dropdown">
-                    <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-outline-success dropdown-toggle" type="button" id="actions" data-bs-toggle="dropdown" aria-expanded="false">
                         Gravar
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <ul class="dropdown-menu" aria-labelledby="actions">
 
                         <li><button type="submit" class="dropdown-item"><svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#save')}}" />
                                 </svg>Gravar</button></li>
 
-                        <li><button class="dropdown-item"><svg class="bi me-2" width="20" height="20" fill="currentColor">
+                        <li><a class="dropdown-item"><svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
-                                </svg>Gravar e Imprimir Comprovante</button></li>
+                                </svg>Gravar e Imprimir Comprovante</a></li>
 
 
-                        <li><button class="dropdown-item" id="submit_and_add" type="button" onclick="submitForm()"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                        <li><a class="dropdown-item" href="#" onclick="submitForm()"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#plus-square')}}" />
-                                </svg>Gravar e Adicionar Outro Equipamento</button></li>
+                                </svg>Gravar e Adicionar Outro Equipamento</a></li>
                     </ul>
                 </div>
 

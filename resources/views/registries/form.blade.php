@@ -1,8 +1,7 @@
 @extends('template.base')
 @section('title') {{isset($registry->id) ? 'Registro de Equipamentos' : 'Novo Registro'}} @endsection
 @section('content')
-<form action="{{route('registros.equipamento.incluir')}}" method="POST" id="customer_form">
-    @csrf
+<form action="{{route('registros.equipamento.incluir')}}" method="GET">
 
     @if(isset($registry->id))
     <input type="hidden" value="{{$registry->id}}" name="id">

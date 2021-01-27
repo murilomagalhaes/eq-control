@@ -5,26 +5,6 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
-<!-- Submit forms with anchor tag -->
-
-
-<script>
-    function submitForm() {
-        let form = document.getElementById('registry_form');
-
-        let add_more = document.createElement("input");
-        add_more.name = "add_more";
-        add_more.type = "hidden";
-        add_more.value = "1";
-
-        console.log(add_more);
-
-        form.submit()
-
-    }
-</script> 
-
-
 <!-- Starting Select2 -->
 <script>
     $(document).ready(function() {
@@ -70,6 +50,46 @@
             }
         });
     });
+</script>
+
+<!-- -->
+
+<script>
+    let form = document.getElementById('registry_form');
+
+    form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+    })
+</script>
+
+<!-- Script to manually submit form -->
+<script>
+    function submitForm() {
+
+        let form = document.getElementById('registry_form')
+
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add('was-validated');
+            document.getElementById('actions').click()
+            return false;
+        }
+
+        let add_more = document.createElement("input");
+        add_more.name = "add_more";
+        add_more.type = "hidden";
+        add_more.value = "1";
+
+        form.appendChild(add_more);
+
+        form.submit();
+    }
 </script>
 
 @if(old('marca'))
