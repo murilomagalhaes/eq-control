@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EquipmentFormRequest;
 use App\Http\Requests\RegistryFormRequest;
 use App\Models\{Equipment, Registry};
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 use stdClass;
 
 class RegistryController extends Controller
@@ -90,11 +88,11 @@ class RegistryController extends Controller
         //Removes the inserted registry data from the session
         session()->forget('registry');
 
-        if ($equipment->add_more) {
+        if (isset($equipment->add_more) && $equipment->add_more == 1) {
 
             return redirect()->route('registros.equipamento.incluir');
         }
-        
+
         //When the user won't add another equipment to the registry...
         session()->forget('active_registry');
         session()->forget('registry_id');
@@ -108,6 +106,16 @@ class RegistryController extends Controller
     {
         return view('registries.show')->with([
             'registry' => $registry
+        ]);
+    }
+
+    public function print(Registry $registry)
+    {
+        $prioridades = ['Baixa', 'Média', 'Alta', 'Crítica'];    
+        
+        return view('prints.entrega')->with([
+            'registry' => $registry,
+            'prioridades' => $prioridades
         ]);
     }
 }

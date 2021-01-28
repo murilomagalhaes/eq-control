@@ -51,6 +51,7 @@ Route::group(['prefix' => '/cadastros'], function () {
 
 Route::group(['prefix' => '/registros'], function () {
     Route::get('/', [RegistryController::class, 'index'])->name('registros');
+    Route::get('/imprimir/{registry}', [RegistryController::class, 'print'])->name('imprimir');
     Route::get('/incluir', [RegistryController::class, 'form'])->name('registros.incluir');
     Route::get('/{registry}', [RegistryController::class, 'show'])->name('registros.mostrar');
     Route::get('/incluir/equipamento', [RegistryController::class, 'addEquipment'])->name('registros.equipamento.incluir');

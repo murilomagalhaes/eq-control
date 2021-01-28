@@ -24,12 +24,12 @@
 
         @if(session('registry_id'))
         <div class="col-md-8 d-flex align-items-center">
-            <h1 class="h4 my-2">Registro: {{session('registry_id')}} > Novo equipamento </h1>
+            <h1 class="h4 my-2">Registro: {{session('registry_id')}} > Equipamento </h1>
         </div>
 
         @else
         <div class="col-md-8 d-flex align-items-center">
-            <h1 class="h4 my-2">Novo Registro > Equipamento</h1>
+            <h1 class="h4 my-2">Novo Registro > Equipamento </h1>
         </div>
         @endif
 
@@ -39,11 +39,19 @@
             @if(Route::is('registros.equipamento.incluir'))
             <div class="d-flex align-items-center float-end">
 
+                @if(session('registry_id'))
+                <div class="me-2 my-1">
+                    <a class="btn btn-outline-danger d-flex align-items-center" href="{{route('registros')}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                            <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#backspace')}}" />
+                        </svg>Cancelar</a>
+                </div>
+                @else
                 <div class="me-2 my-1">
                     <a class="btn btn-outline-secondary d-flex align-items-center" href="{{url()->previous()}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                             <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#backspace')}}" />
                         </svg>Voltar</a>
                 </div>
+                @endif
 
                 <div class="dropdown">
                     <button class="btn btn-outline-success dropdown-toggle" type="button" id="actions" data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,16 +59,25 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="actions">
 
+                        <!--O script submitForm recebe os parametros (stop, e print)
+                            O stop para adição de um novo registro, e apenas o grava com seu estado atual.
+                            O print é usado para imprimir o comprovante de entrada.                
+                            Esses parâmetros são enviados para o back end para validação condicional das ações.                        
+                        -->
+                        @if(session('registry_id'))
+                        <li><a type="submit" class="dropdown-item" href="#" onclick="submitForm(true, false)"><svg class="bi me-2" width="20" height="20" fill="currentColor">
+                                    <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#save')}}" />
+                                </svg>Gravar</a></li>
+                        @else
                         <li><button type="submit" class="dropdown-item"><svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#save')}}" />
                                 </svg>Gravar</button></li>
-
-                        <li><a class="dropdown-item"><svg class="bi me-2" width="20" height="20" fill="currentColor">
+                        @endif
+                        <li><a class="dropdown-item" href="#" onclick="submitForm(true, true)"><svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
                                 </svg>Gravar e Imprimir Comprovante</a></li>
 
-
-                        <li><a class="dropdown-item" href="#" onclick="submitForm()"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                        <li><a class="dropdown-item" href="#" onclick="submitForm(false, false)"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#plus-square')}}" />
                                 </svg>Gravar e Adicionar Outro Equipamento</a></li>
                     </ul>
@@ -121,7 +138,7 @@
                 <svg class="bi me-3 " width="22px" height="22px" fill="currentColor">
                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#laptop')}}" />
                 </svg>
-                <h2 class="h5 my-0">Equipamentos:</h2>
+                <h2 class="h5 my-0">Equipamento:</h2>
             </div>
 
 

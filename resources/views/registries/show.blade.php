@@ -19,7 +19,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item" href="#">Editar</a></li>
-                        <li><a class="dropdown-item" href="#">Apagar</a></li>
+                        <li><a class="dropdown-item" target="_blank" href="{{route('imprimir', $registry)}}">Imprimir</a></li>
                         <li><a class="dropdown-item" href="#">Imprimir</a></li>
                     </ul>
                 </div>
@@ -96,6 +96,8 @@
         </div>
     </div>
 </div>
+
+<hr>
 
 @foreach($registry->equipments as $i => $equipment)
 <div class="row p-0 m-0">

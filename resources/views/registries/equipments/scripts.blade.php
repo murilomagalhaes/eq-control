@@ -69,7 +69,7 @@
 
 <!-- Script to manually submit form -->
 <script>
-    function submitForm() {
+    function submitForm(stop, print) {
 
         let form = document.getElementById('registry_form')
 
@@ -84,7 +84,20 @@
         let add_more = document.createElement("input");
         add_more.name = "add_more";
         add_more.type = "hidden";
-        add_more.value = "1";
+
+        if (stop == true) {
+            add_more.value = 0;
+        } else {
+            add_more.value = 1;
+        }
+
+        if (print == true) {
+            let print = document.createElement("input");
+            print.name = "print";
+            print.type = "hidden";
+
+            form.appendChild(print);
+        }
 
         form.appendChild(add_more);
 
