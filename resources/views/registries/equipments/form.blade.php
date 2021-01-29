@@ -159,7 +159,7 @@
 
                 <div class="form-group col-lg-12">
                     <label for="descricao">Descrição <span class="text-danger"> *</span></label>
-                    <input type="text" name="descricao" id="descricao" placeholder="Ex: Computador branco." class="form-control my-2" required>
+                    <input type="text" name="descricao" id="descricao" placeholder="Ex: Computador branco." class="form-control my-2" value="{{old('descricao')}}" required>
                 </div>
 
             </div>

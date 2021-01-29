@@ -18,7 +18,7 @@ class RegistryController extends Controller
         session()->forget('active_registry');
         session()->forget('registry_id');
 
-        $registries = Registry::with('equipments')->paginate(10);
+        $registries = Registry::with('equipments', 'customer')->orderBy('created_at', 'desc')->paginate(9);
         return view('registries.index', compact('registries'));
     }
 
@@ -88,9 +88,12 @@ class RegistryController extends Controller
         //Removes the inserted registry data from the session
         session()->forget('registry');
 
-        if (isset($equipment->add_more) && $equipment->add_more == 1) {
-
+        if (isset($equipment->add_more) && $equipment->add_more == true) {
             return redirect()->route('registros.equipamento.incluir');
+        }
+
+        if(isset($equipment->print) && $equipment->print == true){
+            $print = $created_registry->id ?? session('registry_id');
         }
 
         //When the user won't add another equipment to the registry...
@@ -98,21 +101,22 @@ class RegistryController extends Controller
         session()->forget('registry_id');
 
         return redirect()->route('registros')->with([
-            'store_success' => 'Registro adicionado com sucesso!'
+            'store_success' => 'Registro adicionado com sucesso!',
+            'print' => isset($print) ? $print : false
         ]);
     }
 
     public function show(Registry $registry)
     {
         return view('registries.show')->with([
-            'registry' => $registry
+            'registry' => $registry->load('equipments.type', 'equipments.brand', 'customer')
         ]);
     }
 
     public function print(Registry $registry)
     {
-        $prioridades = ['Baixa', 'Média', 'Alta', 'Crítica'];    
-        
+        $prioridades = ['Baixa', 'Média', 'Alta', 'Crítica'];
+
         return view('prints.entrega')->with([
             'registry' => $registry,
             'prioridades' => $prioridades

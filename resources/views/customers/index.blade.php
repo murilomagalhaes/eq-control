@@ -88,6 +88,10 @@
 
 </div>
 
+<div class="my-4 d-flex justify-content-center">
+    {{$customers->links()}}
+</div>
+
 @endsection
 
 @section('scripts')

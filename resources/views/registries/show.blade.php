@@ -18,9 +18,12 @@
                         Ações
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">Editar</a></li>
-                        <li><a class="dropdown-item" target="_blank" href="{{route('imprimir', $registry)}}">Imprimir</a></li>
-                        <li><a class="dropdown-item" href="#">Imprimir</a></li>
+                        <li><a class="dropdown-item" href="#"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                                    <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#pencil')}}" />
+                                </svg>Em Desenvolvimento</a></li>
+                        <li><a class="dropdown-item" target="__blank" href="{{route('imprimir', $registry)}}" onclick="submitForm(true, true)"><svg class="bi me-2" width="20" height="20" fill="currentColor">
+                                    <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
+                                </svg>Imprimir Comprovante</a></li>
                     </ul>
                 </div>
 
@@ -116,9 +119,7 @@
                     Ações
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Editar</a></li>
-                    <li><a class="dropdown-item" href="#">Apagar</a></li>
-                    <li><a class="dropdown-item" href="#">Imprimir</a></li>
+                    <li><a class="dropdown-item" href="#">Em desenvolvimento</a></li>
                 </ul>
             </div>
         </div>

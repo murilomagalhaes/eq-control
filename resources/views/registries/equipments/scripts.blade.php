@@ -95,6 +95,7 @@
             let print = document.createElement("input");
             print.name = "print";
             print.type = "hidden";
+            print.value = 1;
 
             form.appendChild(print);
         }

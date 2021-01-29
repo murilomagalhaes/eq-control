@@ -45,14 +45,14 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li>
                             <div id="save-edit-div">
-                                <button class="dropdown-item text-primary d-flex align-items-center" type="button" id="edit-btn" onclick="enableInputs()">
+                                <button class="dropdown-item d-flex align-items-center" type="button" id="edit-btn" onclick="enableInputs()">
                                     <svg class="bi me-2" width="20" height="20" fill="currentColor">
                                         <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#pencil-square')}}" />
                                     </svg>Editar</button>
                             </div>
                         </li>
                         <li>
-                            <button class="dropdown-item text-danger d-flex align-items-center" type="button"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                            <button class="dropdown-item d-flex align-items-center" type="button"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#eraser')}}" />
                                 </svg>Deletar</button>
                         </li>

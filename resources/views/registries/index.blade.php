@@ -8,7 +8,7 @@
     }
 
     #registry:hover {
-       opacity:0.6
+        opacity: 0.6
     }
 </style>
 
@@ -133,10 +133,20 @@
     </div>
 
     @endforeach
-
-
 </div>
 
+<div class="my-4 d-flex justify-content-center">
+        {{$registries->links()}}
+</div>
 
+@if(session('print'))
+<script>
+
+(function() {
+    window.open("{{route('imprimir', session('print'))}}")
+})();
+
+</script>
+@endif
 
 @endsection

@@ -21,7 +21,7 @@
 
     <div class="text-center fw-bold border-bottom border-dark pb-2">REGISTRO DE EQUIPAMENTOS PARA MANUTENÇÃO</div>
     <div class="text-end my-2">
-        <div><span class="fw-bold me-2">{{$registry->equipments->count()}}</span><span>Equipamento(s) </span> </div>
+        <div><span class="fw-bold">{{$registry->equipments->count()}}</span> <span>Equipamento(s) </span> </div>
         <div><span class="fw-bold">Prioridade:</span> <span>{{$prioridades[$registry->prioridade - 1]}} </span></div>
     </div>
 
@@ -44,33 +44,40 @@
         <div class="border-bottom border-dark pb-2"> <span class="fw-bold"> Equipamento {{$i + 1}}: {{$equipment->descricao}} </span></div>
         <div> <span class="fw-bold">Tipo: </span>{{$equipment->type->nome}}</div>
         <div> <span class="fw-bold">Marca: </span>{{$equipment->brand->nome}}</div>
-        <div> <span class="fw-bold">Num. Série: </span>{{$equipment->ser_num ?? 'Nenhum.'}}</div>
+        <div> <span class="fw-bold">Num. Série: </span>{{$equipment->num_serie ?? 'Nenhum.'}}</div>
         <div class="fw-bold border-top border-dark pt-1">Problemas:</div>
         <div>{{$equipment->problemas}}</div>
     </div>
-    @endforeach
 
-    <div class="row mt-4 fixed-bottom">
+    @if($loop->last)
 
-        <div class="col-6">
+    <div class="row mt-4 pt-4">
 
+        <div class="col-6 mt-4 pt-4">
             <div class="mx-2 border-top border-dark"></div>
             <div class="text-center">Assinatura do Cliente</div>
         </div>
 
-        <div class="col-6">
-
+        <div class="col-6 mt-4 pt-4">
             <div class="mx-2 border-top border-dark"></div>
             <div class="text-center">Assinatura da Loja</div>
         </div>
 
-
     </div>
+
+    @endif
+
+
+    @endforeach
+
 
     <script>
         (function() {
 
             window.print();
+            window.onafterprint = function() {
+                window.close();
+            }
 
         })();
     </script>

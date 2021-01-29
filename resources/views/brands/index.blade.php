@@ -78,6 +78,10 @@
     </table>
 </div>
 
+<div class="my-4 d-flex justify-content-center">
+    {{$brands->links()}}
+</div>
+
 @endsection
 
 @section('scripts')

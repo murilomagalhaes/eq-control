@@ -80,6 +80,10 @@
     </table>
 </div>
 
+<div class="my-4 d-flex justify-content-center">
+    {{$equipment_types->links()}}
+</div>
+
 @endsection
 
 @section('scripts')
