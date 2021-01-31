@@ -3,8 +3,14 @@
 @section('content')
 
 <style>
-    tr[data-href] {
-        cursor: pointer;
+    *:focus {
+        outline: 0px;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 38px !important;
+        margin-top: 0.4em;
+        margin-bottom: 0.4em;
     }
 
     #registry:hover {
@@ -37,10 +43,41 @@
                 <div id="collapseOne" class="accordion-collapse {{isset($search) ? 'collapse show' : 'collapse'}}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <form action="{{route('cadastros.cliente.buscar')}}" method="GET">
+                            <div class="row">
+                                <div class="col-lg-4 p-2">
+                                    <select name="periodo" id="periodo" class="form-select">
+                                        <option value="" selected disabled>Período:</option>
+                                        <option value="Entrada">Entrada</option>
+                                        <option value="Previsao">Previsao</option>
+                                        <option value="Entrega">Entrega</option>
+                                    </select>
+                                    <div class="input-group my-2">
+                                        <span class="input-group-text">De</span>
+                                        <input type="date" id="periodo_de" class="form-control">
+                                    </div>
 
-                            <div class="input-group my-2">
-                                <input type="text" name="q" class="form-control me-2" placeholder="<EM DESENVOLVIMENTO...>" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{isset($search) ? $search : ''}}">
-                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar</button>
+                                    <div class="input-group my-2">
+                                        <span class="input-group-text">Até</span>
+                                        <input type="date" id="periodo_ate" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-8 p-2">
+                                    <select name="cliente" id="cliente" class="cliente form-select"></select>
+                                    <select name="responsavel" id="responsavel" class="responsavel form-select"></select>
+
+                                    <div class="input-group">
+                                        <select name="" id="prioridade" class="form-select me-2">
+                                            <option value="" selected disabled>Prioridade</option>
+                                            <option value="1">Baixa</option>
+                                            <option value="2">Média</option>
+                                            <option value="3">Alta</option>
+                                            <option value="4" class="text-danger">Crítica</option>
+                                        </select>
+
+                                        <button class="btn btn-outline-secondary float-end" type="submit">Pesquisar</button>
+                                    </div>
+                                </div>
                             </div>
 
                         </form>
@@ -136,17 +173,19 @@
 </div>
 
 <div class="my-4 d-flex justify-content-center">
-        {{$registries->links()}}
+    {{$registries->links()}}
 </div>
 
 @if(session('print'))
 <script>
-
-(function() {
-    window.open("{{route('imprimir', session('print'))}}")
-})();
-
+    (function() {
+        window.open("{{route('imprimir', session('print'))}}")
+    })();
 </script>
+@else
+@section('scripts')
+@include('registries.search_scripts')
+@endsection
 @endif
 
 @endsection

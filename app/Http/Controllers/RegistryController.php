@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EquipmentFormRequest;
 use App\Http\Requests\RegistryFormRequest;
+use App\Http\Requests\SearchRegistryFormRequest;
 use App\Models\{Equipment, Registry};
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -92,7 +93,7 @@ class RegistryController extends Controller
             return redirect()->route('registros.equipamento.incluir');
         }
 
-        if(isset($equipment->print) && $equipment->print == true){
+        if (isset($equipment->print) && $equipment->print == true) {
             $print = $created_registry->id ?? session('registry_id');
         }
 
@@ -121,5 +122,10 @@ class RegistryController extends Controller
             'registry' => $registry,
             'prioridades' => $prioridades
         ]);
+    }
+
+    public function search(SearchRegistryFormRequest $request)
+    {
+
     }
 }
