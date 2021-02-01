@@ -24,9 +24,13 @@ class SearchRegistryFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'periodo_de' => 'date|required|',
-            'periodo_ate' => 'date|required|after:previsao_de',
-            'periodo' => 'required'
+            'periodo' => "in:dt_entrada,dt_previsao,dt_entrega|nullable|required_with:periodo_de|required_with:periodo_ate",
+            'periodo_de' => 'date|nullable|required_with:periodo',
+            'periodo_ate' => 'date|nullable|required_with:periodo|required_with:periodo_ate|after:periodo_de',
+            'cliente' => 'integer|nullable',
+            'responsavel' => 'integer|nullable',
+            'prioridade' => 'integer|between:1,4|nullable'
         ];
     }
+
 }

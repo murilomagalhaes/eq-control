@@ -3,19 +3,15 @@
 @section('content')
 
 <style>
-    *:focus {
-        outline: 0px;
+    .card {
+        transition: transform .2s
     }
 
-    .select2-container .select2-selection--single {
-        height: 38px !important;
-        margin-top: 0.4em;
-        margin-bottom: 0.4em;
+    .card:hover {
+        opacity: 0.8;
+        transform: scale(1.02);
     }
 
-    #registry:hover {
-        opacity: 0.6
-    }
 </style>
 
 <div class="row p-2 border rounded-3 mb-4 shadow-sm">
@@ -40,25 +36,36 @@
 
                     </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse {{isset($search) ? 'collapse show' : 'collapse'}}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div id="collapseOne" class="accordion-collapse {{isset($search) || $errors->any() ? 'collapse show' : 'collapse'}}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <form action="{{route('cadastros.cliente.buscar')}}" method="GET">
+                        @if($errors->any())
+                        <div class="row m-2">
+                            <div class="alert alert-danger shadow-sm">
+                                <ul class="m-auto p-auto">
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        @endif
+                        <form action="{{route('registros.buscar')}}" method="GET">
                             <div class="row">
                                 <div class="col-lg-4 p-2">
-                                    <select name="periodo" id="periodo" class="form-select">
-                                        <option value="" selected disabled>Período:</option>
-                                        <option value="Entrada">Entrada</option>
-                                        <option value="Previsao">Previsao</option>
-                                        <option value="Entrega">Entrega</option>
+                                    <select name="periodo" id="periodo" class="form-select my-2">
+                                        <option value="" selected disabled>Período: </option>
+                                        <option value="dt_entrada">Entrada</option>
+                                        <option value="dt_previsao">Previsao</option>
+                                        <option value="dt_entrega">Entrega</option>
                                     </select>
-                                    <div class="input-group my-2">
+                                    <div class="input-group my-3">
                                         <span class="input-group-text">De</span>
-                                        <input type="date" id="periodo_de" class="form-control">
+                                        <input type="date" id="periodo_de" name="periodo_de" class="form-control" value="{{old('periodo_de')}}">
                                     </div>
 
-                                    <div class="input-group my-2">
+                                    <div class="input-group my-3">
                                         <span class="input-group-text">Até</span>
-                                        <input type="date" id="periodo_ate" class="form-control">
+                                        <input type="date" id="periodo_ate" name="periodo_ate" class="form-control" value="{{old('periodo_ate')}}">
                                     </div>
                                 </div>
 
@@ -66,16 +73,18 @@
                                     <select name="cliente" id="cliente" class="cliente form-select"></select>
                                     <select name="responsavel" id="responsavel" class="responsavel form-select"></select>
 
-                                    <div class="input-group">
-                                        <select name="" id="prioridade" class="form-select me-2">
+                                    <div class="input-group my-2">
+                                        <select name="prioridade" id="prioridade" class="form-select me-2">
                                             <option value="" selected disabled>Prioridade</option>
                                             <option value="1">Baixa</option>
                                             <option value="2">Média</option>
                                             <option value="3">Alta</option>
                                             <option value="4" class="text-danger">Crítica</option>
                                         </select>
-
-                                        <button class="btn btn-outline-secondary float-end" type="submit">Pesquisar</button>
+                                        <a class="btn btn-outline-secondary float-end d-flex align-items-center" title="Limpar pesquisa" href="{{route('registros')}}"><svg class="bi m-auto" width="20" height="20" fill="currentColor">
+                                                <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#arrow-repeat')}}" />
+                                            </svg></a>
+                                        <button class="btn btn-outline-success float-end" type="submit">Pesquisar</button>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +112,7 @@
     <div class="col-lg-4">
 
         <div class="card p-0 my-3 shadow">
-            <a href="{{route('registros.mostrar', $registry)}}" class="text-decoration-none text-dark" id="registry">
+            <a href="{{route('registros.mostrar', $registry)}}" title="Mostrar registro" class="text-decoration-none text-dark" id="registry">
                 <div class="card-body">
                     <h5 class="card-title m-1 text-center">{{$registry->customer->nome}}</h5>
                     <hr>

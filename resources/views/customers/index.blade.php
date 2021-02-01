@@ -38,7 +38,10 @@
                         <form action="{{route('cadastros.cliente.buscar')}}" method="GET">
                             <div class="input-group my-2">
                                 <input type="text" name="q" class="form-control me-2" placeholder="Pesquisa por nome, razão social, ou CNPJ" aria-label="Recipient's username" aria-describedby="button-addon2" value="{{isset($search) ? $search : ''}}">
-                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar</button>
+                                <a class="btn btn-outline-secondary float-end d-flex align-items-center" title="Limpar pesquisa" href="{{route('cadastros.cliente')}}"><svg class="bi m-auto" width="20" height="20" fill="currentColor">
+                                        <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#arrow-repeat')}}" />
+                                    </svg></a>
+                                <button class="btn btn-outline-success" type="submit" id="button-addon2">Pesquisar</button>
                             </div>
                         </form>
                     </div>
@@ -54,6 +57,18 @@
 <div class="row mt-4">
     <div class="alert alert-success shadow-sm">
         {{session('store_success')}}
+    </div>
+</div>
+@endif
+
+@if($errors->any())
+<div class="row mt-4">
+    <div class="alert alert-danger shadow-sm">
+        <ul class="m-auto p-auto">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
 </div>
 @endif

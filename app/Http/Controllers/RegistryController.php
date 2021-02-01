@@ -127,5 +127,27 @@ class RegistryController extends Controller
     public function search(SearchRegistryFormRequest $request)
     {
 
+        $registries = Registry::with('equipments', 'customer')
+            ->when($request->periodo, function ($registries) use ($request) {
+                return $registries->whereBetween($request->periodo, [Carbon::parse($request->periodo_de), Carbon::parse($request->periodo_ate)]);
+            })
+            ->when($request->cliente, function ($registries) use ($request) {
+                return $registries->where('customer_id', $request->cliente);
+            })
+            ->when($request->responsavel_id, function ($registries) use ($request) {
+                return $registries->where('responsavel_id', $request->responsavel_id);
+            })
+            ->when($request->prioridade, function ($registries) use ($request) {
+                return $registries->where('prioridade', $request->prioridade);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(9);
+
+        $request->flash();
+
+        return view('registries.index')->with([
+            'registries' => $registries,
+            'search' => true
+        ]);
     }
 }
