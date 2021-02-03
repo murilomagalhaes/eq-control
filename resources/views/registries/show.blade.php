@@ -9,7 +9,7 @@
             <h1 class="h4 my-3 me-3"> Registro: {{$registry->id}} </h1>
 
             <div class="d-flex">
-                <a class="btn btn-outline-secondary d-flex me-2 align-items-center" href="{{url()->previous()}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                <a class="btn btn-outline-secondary d-flex me-2 align-items-center" href="{{route('registros')}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                         <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#backspace')}}" />
                     </svg> Voltar </a>
 
@@ -18,9 +18,9 @@
                         Ações
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                        <li><a class="dropdown-item" href="{{route('registros.editar', $registry)}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#pencil')}}" />
-                                </svg>Em Desenvolvimento</a></li>
+                                </svg>Editar</a></li>
                         <li><a class="dropdown-item" target="__blank" href="{{route('imprimir', $registry)}}" onclick="submitForm(true, true)"><svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
                                 </svg>Imprimir Comprovante</a></li>
@@ -61,6 +61,7 @@
             <div class="p-2">
                 <div class="d-flex justify-content-between"> <span class="fw-bold"> Entrada: </span> {{$registry->getFormatedDateTime('dt_entrada')}}</div>
                 <div class="d-flex justify-content-between"> <span class="fw-bold"> Previsão: </span> {{$registry->getFormatedDateTime('dt_previsao')}}</div>
+                <div class="d-flex justify-content-between"> <span class="fw-bold"> Entrega: </span> </div>
             </div>
         </div>
     </div>
@@ -75,8 +76,8 @@
             </div>
 
             <div class="p-2">
-                <div class="d-flex justify-content-between"> <span class="fw-bold"> Responsável: </span> {{$registry->responsavel->nome}}</div>
-                <div class="d-flex justify-content-between"> <span class="fw-bold"> Prioridade: </span>
+                <div class="d-flex justify-content-between"> <span class="fw-bold">Responsável: </span> {{$registry->responsavel->nome}}</div>
+                <div class="d-flex justify-content-between"> <span class="fw-bold">Prioridade: </span>
 
                     @if($registry->prioridade == 1)
                     <span class="text-primary">Baixa</span>
@@ -95,6 +96,7 @@
                     @endif
 
                 </div>
+                <div class="pb-4"> <span class="fw-bold"> </div>
             </div>
         </div>
     </div>

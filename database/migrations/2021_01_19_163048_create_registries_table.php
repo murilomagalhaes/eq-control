@@ -20,6 +20,7 @@ class CreateRegistriesTable extends Migration
             $table->string('telefone', 11);
             $table->dateTime('dt_entrada');
             $table->dateTime('dt_previsao')->nullable();
+            $table->dateTime('dt_entrega')->nullable();
             $table->foreignId('responsavel_id')->references('id')->on('users');
             $table->string('prioridade', 1);
             $table->foreignId('created_by')->references('id')->on('users');

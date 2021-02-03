@@ -23,8 +23,12 @@ class RegistryController extends Controller
         return view('registries.index', compact('registries'));
     }
 
-    public function form()
+    public function form(Registry $registry = null)
     {
+        if ($registry) {
+            return view('registries.form', compact('registry'));
+        }
+
         return view('registries.form');
     }
 

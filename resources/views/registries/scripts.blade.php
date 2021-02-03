@@ -52,17 +52,25 @@
     });
 </script>
 
-
-@if(old('cliente') || isset(session('registry')['cliente']) || old('responsavel') || isset(session('registry')['responsavel']) )
-
-@if(old('cliente') || isset(session('registry')['cliente']))
+<!-- I don't remember why i did this nested if, will check out later -->
+@if(old('cliente') || isset(session('registry')['cliente']) || old('responsavel') || isset(session('registry')['responsavel']) || isset($registry->responsavel_id) )
+@if(old('cliente') || isset(session('registry')['cliente']) || isset($registry->customer_id))
 <script>
     // Busca o cliente antigo e adiciona no select.
     let customerSelect = $('.cliente');
 
+    let url_cliente
+
+    // If the registry is on edit mode ...
+    if ("{{isset($registry->customer_id) ?? ''}}") {
+        url_cliente = "{{route('cadastros.cliente.ajax', $registry->customer_id)}}";
+    } else {
+        url_cliente = "{{route('cadastros.cliente.ajax', session('registry')['cliente'] ?? old('cliente'))}}"
+    }
+
     $.ajax({
         type: 'GET',
-        url: "{{route('cadastros.cliente.ajax', session('registry')['cliente'] ?? old('cliente'))}}"
+        url: url_cliente
     }).then(function(data) {
         // create the option and append to Select2
         let option = new Option(data.cpf_cnpj + ' - ' + data.nome, data.id, true, true);
@@ -79,15 +87,22 @@
 </script>
 @endif
 
-@if(old('responsavel') || isset(session('registry')['responsavel']))
+@if(old('responsavel') || isset(session('registry')['responsavel']) || isset($registry->responsavel_id))
 <script>
     // Busca o responsavel antigo e adiciona no select.
     let userSelect = $('.responsavel');
 
+    let url_responsavel;
+
+    if ("{{isset($registry->responsavel_id)}}") {
+        url_responsavel = "{{route('cadastros.usuario.ajax', $registry->responsavel_id)}}"
+    } else {
+        url_responsavel = "{{route('cadastros.usuario.ajax', session('registry')['responsavel'] ?? old('responsavel'))}}"
+    }
 
     $.ajax({
         type: 'GET',
-        url: "{{route('cadastros.usuario.ajax', session('registry')['responsavel'] ?? old('responsavel'))}}"
+        url: url_responsavel
     }).then(function(data) {
         // create the option and append to Select2
         let option = new Option(data.nome, data.id, true, true);
@@ -106,8 +121,14 @@
 @php
 Session::forget('registry')
 @endphp
-
 @endif
+@endif
+
+@if(isset($registry))
+<script>
+let date = "{{$registry->dt_previsao}}";
+document.getElementById('dt_previsao').value = date.replace(' ', 'T');
+</script>
 @endif
 
 <script>
@@ -118,34 +139,12 @@ Session::forget('registry')
             return false;
         return true;
     }
-
-
-    // Habilita inputs
-
-    function enableInputs() {
-
-        let inputs = document.getElementsByTagName("input");
-
-        document.getElementById('uf').disabled = false;
-        for (i = 0; i < inputs.length; i++) {
-            inputs[i].disabled = false;
-        }
-
-        document.getElementById('edit-btn').remove()
-
-        let save_edit_div = document.getElementById('save-edit-div');
-        save_edit_div.innerHTML = "<button class='btn btn-outline-success d-flex align-items-center' type='submit' id='edit-btn'>" +
-            "<svg class='bi me-2' width='20' height='20' fill='currentColor'>" +
-            "<use xlink:href='{{asset('dist/icons/bootstrap-icons.svg#save')}}' />" +
-            "</svg>Gravar</button>";
-
-    }
 </script>
 
-@if(old('prioridade') || isset(session('registry')['prioridade']))
+@if(old('prioridade') || isset(session('registry')['prioridade']) || isset($registry->prioridade))
 <script>
     // Seleciona prioridade ao abrir formulario.
-    let prioridade = "{{old('prioridade')}}" || "{{session('registry')['prioridade'] ?? ''}}"
+    let prioridade = "{{old('prioridade')}}" || "{{session('registry')['prioridade'] ?? ''}}" || "{{$registry->prioridade}}"
 
     let prioridade_options = document.getElementById('prioridade').options;
 
@@ -154,20 +153,5 @@ Session::forget('registry')
             prioridade_options[i].setAttribute('selected', 'selected');
         }
     }
-</script>
-@endif
-
-@if(Route::is('cadastros.cliente.mostrar') && !$errors->any())
-<script>
-    // Desabilita inputs ao mostrar cadastro.
-    var inputs = document.getElementsByTagName("input");
-    document.getElementById('uf').disabled = true;
-    for (i = 0; i < inputs.length; i++) {
-        inputs[i].disabled = true;
-    }
-</script>
-@elseif($errors->any())
-<script>
-    enableInputs();
 </script>
 @endif
