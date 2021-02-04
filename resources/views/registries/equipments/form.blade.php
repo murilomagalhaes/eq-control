@@ -1,5 +1,13 @@
 @extends('template.base')
-@section('title') {{isset($customer->id) ? 'Registro de Equipamentos' : 'Novo Registro > Equipamento'}} @endsection
+@section('title')
+@if(isset($equipment))
+Edição de Equipamento
+@elseif(isset($customer->id))
+Registro de Equipamentos
+@else
+Novo Registro > Equipamento
+@endif
+@endsection
 @section('content')
 
 <style>
@@ -17,7 +25,7 @@
 </style>
 
 
-<form action="{{route('registros.gravar')}}" method="POST" id="registry_form" novalidate>
+<form action="{{isset($equipment) ? route('registros.equipamentos.atualizar') : route('registros.gravar')}}" method="POST" id="registry_form" novalidate>
     @csrf
 
     <div class="row p-2 border rounded-3 mb-4 shadow-sm">
@@ -25,6 +33,11 @@
         @if(session('registry_id'))
         <div class="col-md-8 d-flex align-items-center">
             <h1 class="h4 my-2">Registro: {{session('registry_id')}} > Equipamento </h1>
+        </div>
+
+        @elseif(isset($equipment))
+        <div class="col-md-8 d-flex align-items-center">
+            <h1 class="h4 my-2">Registro: {{$equipment->registry_id}} > {{$equipment->descricao}} </h1>
         </div>
 
         @else
@@ -85,27 +98,22 @@
 
 
             </div>
-            @elseif(Route::is('equipmentos.registro.mostrar'))
+            @elseif(isset($equipment))
+
+            <input type="hidden" name="id" id="id" value="{{$equipment->id}}">
 
             <div class="d-flex flex-wrap align-items-center float-end">
 
                 <div class="me-2 my-1">
-                    <a class="btn btn-outline-secondary d-flex align-items-center" href=""> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                    <a class="btn btn-outline-secondary d-flex align-items-center" href="{{route('registros.mostrar', $equipment->registry_id)}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                             <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#backspace')}}" />
                         </svg>Voltar</a>
                 </div>
 
-                <div id="save-edit-div" class="me-2 my-1">
-                    <button class="btn btn-outline-primary d-flex align-items-center" type="button" id="edit-btn" onclick="enableInputs()">
-                        <svg class="bi me-2" width="20" height="20" fill="currentColor">
-                            <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#pencil-square')}}" />
-                        </svg>Editar</button>
-                </div>
-
                 <div class="my-1">
-                    <button class="btn btn-outline-danger d-flex align-items-center" type="button"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
-                            <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#eraser')}}" />
-                        </svg>Deletar</button>
+                    <button class="btn btn-outline-primary d-flex align-items-center" type="submit"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                            <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#save')}}" />
+                        </svg>Gravar</button>
                 </div>
 
             </div>
@@ -159,7 +167,7 @@
 
                 <div class="form-group col-lg-12">
                     <label for="descricao">Descrição <span class="text-danger"> *</span></label>
-                    <input type="text" name="descricao" id="descricao" placeholder="Ex: Computador branco." class="form-control my-2" value="{{old('descricao')}}" required>
+                    <input type="text" name="descricao" id="descricao" placeholder="Ex: Computador branco." class="form-control my-2" value="{{old('descricao')}}{{$equipment->descricao ?? ''}}" required>
                 </div>
 
             </div>
@@ -167,12 +175,12 @@
             <div class="col-lg-7">
                 <div class="form-group col-lg-12">
                     <label for="serie">Num. de Série</label>
-                    <input type="text" name="serie" id="serie" class="form-control my-2">
+                    <input type="text" name="serie" id="serie" class="form-control my-2" value="{{old('serie')}}{{$equipment->num_serie ?? ''}}">
                 </div>
 
                 <div class="form-group">
                     <label for="problemas">Problemas Apresentados <span class="text-danger"> *</span></label>
-                    <textarea name="problemas" id="problemas" placeholder="Descreva brevemente o motivo da entrega do equipamento." rows="5" class="form-control my-2" required>{{old('problemas')}}</textarea>
+                    <textarea name="problemas" id="problemas" placeholder="Descreva brevemente o motivo da entrega do equipamento." rows="5" class="form-control my-2" required>{{old('problemas')}}{{$equipment->problemas ?? ''}}</textarea>
                 </div>
 
 

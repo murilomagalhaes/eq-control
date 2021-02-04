@@ -1,5 +1,5 @@
 @extends('template.base')
-@section('title') {{isset($brand->id) ? 'Cadastro de Usuarios' : 'Nova Marca'}} @endsection
+@section('title') {{isset($brand->id) ? 'Cadastro de Marcas' : 'Nova Marca'}} @endsection
 @section('content')
 <form action="{{route('cadastros.marca.gravar')}}" method="POST" id="customer_form">
     @csrf

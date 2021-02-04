@@ -106,6 +106,14 @@
 </div>
 @endif
 
+@if(!empty(session('inesperado')))
+<div class="row mt-4">
+    <div class="alert alert-danger shadow-sm">
+        {{session('inesperado')}}
+    </div>
+</div>
+@endif
+
 <div class="row">
 
     @foreach($registries as $registry)

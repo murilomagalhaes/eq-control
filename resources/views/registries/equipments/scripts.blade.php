@@ -106,13 +106,13 @@
     }
 </script>
 
-@if(old('marca'))
+@if(old('marca') || isset($equipment))
 <script>
     // Busca a marca antigad e adiciona no select.
     let brandSelect = $('.marca');
     $.ajax({
         type: 'GET',
-        url: "{{route('cadastros.marca.ajax', old('marca'))}}"
+        url: "{{route('cadastros.marca.ajax', old('marca') ?? $equipment->brand_id)}}"
     }).then(function(data) {
         // create the option and append to Select2
         let option = new Option(data.nome, data.id, true, true);
@@ -129,13 +129,13 @@
 </script>
 @endif
 
-@if(old('tipo'))
+@if(old('tipo') || isset($equipment))
 <script>
     // Busca o tipo antigo e adiciona no select.
     let typeSelect = $('.tipo');
     $.ajax({
         type: 'GET',
-        url: "{{route('cadastros.tipo.ajax', old('tipo'))}}"
+        url: "{{route('cadastros.tipo.ajax', old('tipo') ?? $equipment->type_id)}}"
     }).then(function(data) {
         // create the option and append to Select2
         let option = new Option(data.nome, data.id, true, true);
@@ -160,40 +160,4 @@
             return false;
         return true;
     }
-
-
-    // Habilita inputs
-    function enableInputs() {
-
-        let inputs = document.getElementsByTagName("input");
-
-        document.getElementById('uf').disabled = false;
-        for (i = 0; i < inputs.length; i++) {
-            inputs[i].disabled = false;
-        }
-
-        document.getElementById('edit-btn').remove()
-
-        let save_edit_div = document.getElementById('save-edit-div');
-        save_edit_div.innerHTML = "<button class='btn btn-outline-success d-flex align-items-center' type='submit' id='edit-btn'>" +
-            "<svg class='bi me-2' width='20' height='20' fill='currentColor'>" +
-            "<use xlink:href='{{asset('dist/icons/bootstrap-icons.svg#save')}}' />" +
-            "</svg>Gravar</button>";
-
-    }
 </script>
-
-@if(Route::is('cadastros.cliente.mostrar') && !$errors->any())
-<script>
-    // Desabilita inputs ao mostrar cadastro.
-    var inputs = document.getElementsByTagName("input");
-    document.getElementById('uf').disabled = true;
-    for (i = 0; i < inputs.length; i++) {
-        inputs[i].disabled = true;
-    }
-</script>
-@elseif($errors->any())
-<script>
-    enableInputs();
-</script>
-@endif

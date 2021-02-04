@@ -1,7 +1,9 @@
 @extends('template.base')
-@section('title') Registro: {{$registry->id}}@endsection
+@section('title') Registros de Equipamentos: {{$registry->id}}@endsection
 
 @section('content')
+
+
 
 <div class="row p-2 border rounded-3 mb-4 shadow-sm">
     <div class="col-12">
@@ -18,12 +20,15 @@
                         Ações
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="{{route('registros.editar', $registry)}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                        <li><a class="dropdown-item d-flex align-items-center" href="{{route('registros.editar', $registry)}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#pencil')}}" />
                                 </svg>Editar</a></li>
-                        <li><a class="dropdown-item" target="__blank" href="{{route('imprimir', $registry)}}" onclick="submitForm(true, true)"><svg class="bi me-2" width="20" height="20" fill="currentColor">
+                        <li><a class="dropdown-item align-items-center" target="__blank" href="{{route('imprimir', $registry)}}" onclick="submitForm(true, true)"><svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
                                 </svg>Imprimir Comprovante</a></li>
+                        <li><a class="dropdown-item align-items-center" href="{{route('registros.saida.incluir', $registry)}}"><svg class="bi me-2" width="20" height="20" fill="currentColor">
+                                    <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#box-arrow-right')}}" />
+                                </svg>Registrar Saída</a></li>
                     </ul>
                 </div>
 
@@ -31,6 +36,14 @@
         </div>
     </div>
 </div>
+
+@if(!empty(session('store_success')))
+<div class="row mt-4">
+    <div class="alert alert-success shadow-sm">
+        {{session('store_success')}}
+    </div>
+</div>
+@endif
 
 <div class="row d-flex justify-contents-around align-items-center">
 
@@ -116,14 +129,9 @@
                 <h2 class="h5 my-0">Equipamento {{$i + 1}}: <span class="text-primary">{{$equipment->descricao}}</span></h2>
             </div>
 
-            <div class="dropdown">
-                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    Ações
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Em desenvolvimento</a></li>
-                </ul>
-            </div>
+            <a class="btn btn-outline-primary d-flex align-items-center" href="{{route('registros.equipamentos.editar', $equipment)}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                    <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#pencil')}}" />
+                </svg>Editar</a>
         </div>
 
         <div class="p-2">

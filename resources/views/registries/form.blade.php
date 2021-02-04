@@ -1,16 +1,17 @@
 @extends('template.base')
-@section('title') {{isset($registry->id) ? 'Registro de Equipamentos' : 'Novo Registro'}} @endsection
+@section('title'){{isset($registry->id) ? "Registro de Equipamentos: $registry->id"  : 'Novo Registro'}} @endsection
 @section('content')
-<form action="{{route('registros.equipamento.incluir')}}" method="GET">
+<form action="{{ isset($registry) ? route('registros.atualizar') : route('registros.equipamento.incluir')}}" method="{{ isset($registry) ? 'POST' : 'GET'}}">
 
     @if(isset($registry->id))
     <input type="hidden" value="{{$registry->id}}" name="id">
+    @csrf
     @endif
 
     <div class="row p-2 border rounded-3 mb-4 shadow-sm">
 
         <div class="col-md-8 d-flex align-items-center">
-            <h1 class="h4 my-2"> {{isset($registry->id) ? $registry->nome : 'Novo Registro'}} </h1>
+            <h1 class="h4 my-2"> {{isset($registry->id) ? "Registro: $registry->id" : 'Novo Registro'}} </h1>
         </div>
 
         <div class="col-md-4 text-wrap float-end my-2">
@@ -37,7 +38,7 @@
                 </div>
 
                 <div class="my-1">
-                    <button class="btn btn-outline-success d-flex align-items-center" type="button"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                    <button class="btn btn-outline-success d-flex align-items-center" type="submit"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                             <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#save')}}" />
                         </svg>Gravar</button>
                 </div>

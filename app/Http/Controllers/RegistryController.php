@@ -6,6 +6,7 @@ use App\Http\Requests\EquipmentFormRequest;
 use App\Http\Requests\RegistryFormRequest;
 use App\Http\Requests\SearchRegistryFormRequest;
 use App\Models\{Equipment, Registry};
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use stdClass;
@@ -52,6 +53,8 @@ class RegistryController extends Controller
 
     public function store(EquipmentFormRequest $request)
     {
+
+
         //Store form/sesison data as obj;
         $equipment = (object) $request->validated();
         $registry = (object) session('registry');
@@ -111,6 +114,34 @@ class RegistryController extends Controller
         ]);
     }
 
+    public function update(RegistryFormRequest $request)
+    {
+        $registry = Registry::find($request->id);
+
+        if ($registry) {
+
+            $registry->fill([
+                'customer_id' => $request->cliente,
+                'nome' => $request->nome,
+                'telefone' => $request->telefone,
+                'dt_previsao' => $request->dt_previsao ? Carbon::parse($request->dt_previsao) : null,
+                'responsavel_id' => $request->responsavel,
+                'prioridade' => $request->prioridade,
+                'updated_by' => $request->responsavel
+            ]);
+
+            $registry->save();
+
+            return redirect()->route('registros.mostrar', $registry)->with([
+                'store_success' => "Registro $registry->id editado com sucesso!"
+            ]);
+        }
+
+        return redirect()->route('registros')->with([
+            'inesperado' => "Erro inesperado!"
+        ]);
+    }
+
     public function show(Registry $registry)
     {
         return view('registries.show')->with([
@@ -153,5 +184,17 @@ class RegistryController extends Controller
             'registries' => $registries,
             'search' => true
         ]);
+    }
+
+    public function exitForm(Registry $registry)
+    {
+        return view('registries.exit_form', compact('registry'));
+    }
+
+    public function storeExit(Request $request)
+    {
+        if($request->print){
+            dd('PRINT');
+        }
     }
 }

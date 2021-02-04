@@ -1,4 +1,4 @@
-@section('title') Cadastro de Clientes @endsection
+@section('title') Cadastro de Usuários @endsection
 @extends('template.base')
 @section('content')
 

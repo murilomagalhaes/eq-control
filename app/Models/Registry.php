@@ -27,7 +27,7 @@ class Registry extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getFormatedDateTime(string $attr): String|null
+    public function getFormatedDateTime(string $attr)
     {
         if ($attr === 'dt_previsao' && $this->attributes['dt_previsao']) {
             $date = Carbon::parse($this->attributes['dt_previsao']);

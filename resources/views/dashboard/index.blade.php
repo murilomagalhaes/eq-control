@@ -22,7 +22,6 @@
     <li>Autenticação.</li>
     <li>Controle de Acesso.</li>
     <li>Dashboard.</li>
-    <li>Edição de Registros de Entradas equipamentos.</li>
     <li>Registros de Saídas de Equipamentos.</li>
     <li>Relatórios.</li>
 </ul>

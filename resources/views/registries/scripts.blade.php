@@ -63,7 +63,7 @@
 
     // If the registry is on edit mode ...
     if ("{{isset($registry->customer_id) ?? ''}}") {
-        url_cliente = "{{route('cadastros.cliente.ajax', $registry->customer_id)}}";
+        url_cliente = "{{route('cadastros.cliente.ajax', $registry->customer_id ?? '')}}";
     } else {
         url_cliente = "{{route('cadastros.cliente.ajax', session('registry')['cliente'] ?? old('cliente'))}}"
     }
@@ -95,7 +95,7 @@
     let url_responsavel;
 
     if ("{{isset($registry->responsavel_id)}}") {
-        url_responsavel = "{{route('cadastros.usuario.ajax', $registry->responsavel_id)}}"
+        url_responsavel = "{{route('cadastros.usuario.ajax', $registry->responsavel_id ?? '')}}"
     } else {
         url_responsavel = "{{route('cadastros.usuario.ajax', session('registry')['responsavel'] ?? old('responsavel'))}}"
     }
@@ -126,8 +126,11 @@ Session::forget('registry')
 
 @if(isset($registry))
 <script>
-let date = "{{$registry->dt_previsao}}";
-document.getElementById('dt_previsao').value = date.replace(' ', 'T');
+    let dt_previsao = "{{$registry->dt_previsao}}";
+    document.getElementById('dt_previsao').value = dt_previsao.replace(' ', 'T');
+
+    let dt_entrada = "{{$registry->dt_entrada}}";
+    document.getElementById('dt_entrada').value = dt_entrada.replace(' ', 'T');
 </script>
 @endif
 
@@ -139,6 +142,7 @@ document.getElementById('dt_previsao').value = date.replace(' ', 'T');
             return false;
         return true;
     }
+
 </script>
 
 @if(old('prioridade') || isset(session('registry')['prioridade']) || isset($registry->prioridade))
