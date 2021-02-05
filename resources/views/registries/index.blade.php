@@ -11,7 +11,6 @@
         opacity: 0.8;
         transform: scale(1.02);
     }
-
 </style>
 
 <div class="row p-2 border rounded-3 mb-4 shadow-sm">
@@ -153,9 +152,23 @@
 
                     <p class="card-text m-1 d-flex align-items-center justify-content-between">
                         <span class="d-flex align-items-center"> <svg class="bi me-2" width="18" height="18" fill="currentColor">
-                                <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#calendar-check')}}" />
+                                <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#calendar-event')}}" />
                             </svg> Previsão:</span>
                         <span class="fw-bold"> {{$registry->getFormatedDateTime('dt_previsao')}} </span>
+                    </p>
+
+                    <p class="card-text m-1 d-flex align-items-center justify-content-between">
+                        <span class="d-flex align-items-center"> <svg class="bi me-2" width="18" height="18" fill="currentColor">
+                                <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#check-square')}}" />
+                            </svg> Status:</span>
+                        <span class="fw-bold"> @if($registry->procedimentos)
+                            <span class="text-success"> Entregue!</span>
+                            @elseif($registry->isOverDue())
+
+                            <span class="text-danger"> Atrasado</span>
+                            @else
+                            <span style="color: orange"> Pendente</span>
+                            @endif </span>
                     </p>
 
                 </div>
@@ -197,6 +210,12 @@
 <script>
     (function() {
         window.open("{{route('imprimir', session('print'))}}")
+    })();
+</script>
+@elseif(session('print_exit'))
+<script>
+    (function() {
+        window.open("{{route('imprimir.saida', session('print_exit'))}}")
     })();
 </script>
 @else

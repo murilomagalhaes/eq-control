@@ -159,6 +159,16 @@ class RegistryController extends Controller
         ]);
     }
 
+    public function printExit(Registry $registry)
+    {
+        $prioridades = ['Baixa', 'Média', 'Alta', 'Crítica'];
+
+        return view('prints.saida')->with([
+            'registry' => $registry,
+            'prioridades' => $prioridades
+        ]);
+    }
+
     public function search(SearchRegistryFormRequest $request)
     {
 
@@ -193,8 +203,32 @@ class RegistryController extends Controller
 
     public function storeExit(Request $request)
     {
-        if($request->print){
-            dd('PRINT');
+        $validated = $request->validate([
+            'procedimentos' => 'required',
+            'id' => 'required',
+            'print' => 'nullable'
+        ]);
+
+        $registry = Registry::find($validated['id']);
+
+        $registry->fill([
+            'procedimentos' => $validated['procedimentos'],
+            'dt_entrega' => Carbon::now()
+        ]);
+
+        $registry->save();
+
+        if($validated['print']){
+            return redirect()->route('registros')->with([
+                'store_success' => 'Registro de saída efetuado com sucesso!',
+                'print_exit' => $registry
+            ]);
         }
+
+        return redirect()->route('registros')->with([
+            'store_success' => 'Registro de saída efetuado com sucesso!'
+        ]);
+
+        
     }
 }

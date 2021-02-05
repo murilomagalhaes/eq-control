@@ -56,6 +56,7 @@ Route::group(['prefix' => '/registros'], function () {
     Route::get('/editar/{registry}', [RegistryController::class, 'form'])->name('registros.editar');
     Route::get('/{registry}', [RegistryController::class, 'show'])->name('registros.mostrar');
     Route::get('/imprimir/{registry}', [RegistryController::class, 'print'])->name('imprimir');
+    Route::get('/imprimir/saida/{registry}', [RegistryController::class, 'printExit'])->name('imprimir.saida');
     Route::get('/incluir/equipamento', [RegistryController::class, 'addEquipment'])->name('registros.equipamento.incluir');
     Route::post('/atualizar', [RegistryController::class, 'update'])->name('registros.atualizar');
     Route::post('/gravar', [RegistryController::class, 'store'])->name('registros.gravar');

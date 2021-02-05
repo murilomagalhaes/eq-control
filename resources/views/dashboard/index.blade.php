@@ -14,6 +14,7 @@
     <li>Cadastros de Tipos de Equipamentos.</li>
     <li>Cadastros de Marcas de Equipamentos.</li>
     <li>Registro de Entradas de Equipamentos (Com impressão).</li>
+    <li>Registros de Saídas de Equipamentos (Com impressão).</li>
 </ul>
 
 <p>Recursos a serem desenvolvidos:</p>
@@ -22,7 +23,6 @@
     <li>Autenticação.</li>
     <li>Controle de Acesso.</li>
     <li>Dashboard.</li>
-    <li>Registros de Saídas de Equipamentos.</li>
     <li>Relatórios.</li>
 </ul>
 

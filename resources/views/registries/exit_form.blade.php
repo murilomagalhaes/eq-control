@@ -6,7 +6,7 @@ Registro de Saída: Registro {{$registry->id}}
 
 <form action="{{route('registros.saida.gravar')}}" method="POST" id="exit_form" name="exit_form">
     @csrf
-    <input type="hidden" name="id" id="id">
+    <input type="hidden" name="id" id="id" value="{{$registry->id}}">
     <div class="row p-2 border rounded-3 mb-4 shadow-sm">
 
         <div class="col-md-8 d-flex align-items-center">
@@ -116,6 +116,20 @@ Registro de Saída: Registro {{$registry->id}}
             </div>
         </div>
     </div>
+
+    @if($errors->any())
+    <div class="row my-3">
+
+        <div class="alert alert-danger shadow-sm">
+            <ul class="m-auto p-auto">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+
+        </div>
+    </div>
+    @endif
 
     <div class="form-group my-3">
         <label for="procedimentos" class="mb-4 border-start border-4 px-3">Procedimentos realizados:</label>

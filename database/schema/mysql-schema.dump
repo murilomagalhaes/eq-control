@@ -133,7 +133,7 @@ CREATE TABLE `registries` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `updated_by` bigint(20) unsigned DEFAULT NULL,
-  `procedimentos` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `procedimentos` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `registries_customer_id_foreign` (`customer_id`),
   KEY `registries_responsavel_id_foreign` (`responsavel_id`),

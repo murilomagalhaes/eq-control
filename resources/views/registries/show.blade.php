@@ -4,18 +4,26 @@
 @section('content')
 
 
-
 <div class="row p-2 border rounded-3 mb-4 shadow-sm">
     <div class="col-12">
         <div class="d-flex align-items-center justify-content-between">
-            <h1 class="h4 my-3 me-3"> Registro: {{$registry->id}} </h1>
+            <h1 class="h4 my-3 me-3"> Registro: {{$registry->id}}
+                @if($registry->procedimentos)
+                <span class="text-success"> Entregue!</span>
+                @elseif($registry->isOverDue())
+                <span class="text-danger"> Atrasado</span>
+                @else
+                <span class="text-warning"> Pendente</span>
+                @endif
+            </h1>
 
             <div class="d-flex">
-                <a class="btn btn-outline-secondary d-flex me-2 align-items-center" href="{{route('registros')}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                <a class="btn btn-outline-secondary d-flex align-items-center" href="{{route('registros')}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                         <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#backspace')}}" />
                     </svg> Voltar </a>
 
-                <div class="dropdown">
+                @if(!$registry->procedimentos)
+                <div class="dropdown ms-2">
                     <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                         Ações
                     </button>
@@ -25,12 +33,29 @@
                                 </svg>Editar</a></li>
                         <li><a class="dropdown-item align-items-center" target="__blank" href="{{route('imprimir', $registry)}}" onclick="submitForm(true, true)"><svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
-                                </svg>Imprimir Comprovante</a></li>
+                                </svg>Imp. Comprovante de Entrada</a></li>
                         <li><a class="dropdown-item align-items-center" href="{{route('registros.saida.incluir', $registry)}}"><svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#box-arrow-right')}}" />
                                 </svg>Registrar Saída</a></li>
                     </ul>
                 </div>
+
+                @else
+                <div class="dropdown ms-2">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ações
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item align-items-center" target="__blank" href="{{route('imprimir', $registry)}}" onclick="submitForm(true, true)"><svg class="bi me-2" width="20" height="20" fill="currentColor">
+                                    <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
+                                </svg>Imp. Comprovante de Entrada</a></li>
+                                <li><a class="dropdown-item align-items-center" target="__blank" href="{{route('imprimir.saida', $registry)}}" onclick="submitForm(true, true)"><svg class="bi me-2" width="20" height="20" fill="currentColor">
+                                    <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
+                                </svg>Imp. Comprovante de Saída</a></li>
+                    </ul>
+                </div>
+                @endif
+
 
             </div>
         </div>
@@ -74,7 +99,7 @@
             <div class="p-2">
                 <div class="d-flex justify-content-between"> <span class="fw-bold"> Entrada: </span> {{$registry->getFormatedDateTime('dt_entrada')}}</div>
                 <div class="d-flex justify-content-between"> <span class="fw-bold"> Previsão: </span> {{$registry->getFormatedDateTime('dt_previsao')}}</div>
-                <div class="d-flex justify-content-between"> <span class="fw-bold"> Entrega: </span> </div>
+                <div class="d-flex justify-content-between"> <span class="fw-bold"> Entrega: </span> {{$registry->getFormatedDateTime('dt_entrega')}}</div>
             </div>
         </div>
     </div>
@@ -115,7 +140,20 @@
     </div>
 </div>
 
-<hr>
+@if($registry->procedimentos)
+
+<div class="row">
+    <div class="col-12 px-3 py-2">
+
+        <div class="ps-4 py-2 border-start rounded-2 border-4 border-success bg-light shadow-sm">
+            <div class="fw-bold">Procedimentos realizados:</div>
+            <div>{{$registry->procedimentos}}</div>
+        </div>
+    </div>
+</div>
+
+@endif
+
 
 @foreach($registry->equipments as $i => $equipment)
 <div class="row p-0 m-0">
@@ -129,9 +167,11 @@
                 <h2 class="h5 my-0">Equipamento {{$i + 1}}: <span class="text-primary">{{$equipment->descricao}}</span></h2>
             </div>
 
+            @if(!$registry->procedimentos)
             <a class="btn btn-outline-primary d-flex align-items-center" href="{{route('registros.equipamentos.editar', $equipment)}}"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#pencil')}}" />
                 </svg>Editar</a>
+            @endif
         </div>
 
         <div class="p-2">
