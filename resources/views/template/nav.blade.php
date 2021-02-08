@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link {{Route::is('dashboard') ? 'active' : ''}}" aria-current="page" href="/">Dashboard</a>
+                    <a class="nav-link {{Route::is('dashboard') ? 'active' : ''}}" aria-current="page" href="{{route('dashboard')}}">Dashboard</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{strpos(Request::path(), 'cadastros') !== false ? 'active' : ''}}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -30,17 +30,26 @@
                 <li class="nav-item">
                     <a class="nav-link {{strpos(Request::path(), 'registros') !== false ? 'active' : ''}}" aria-current="page" href="{{route('registros')}}">Registros</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{Route::is('relatorios') ? 'active' : ''}}" aria-current="page" href="#" onclick="alert('Em desenvolvimento')">Relatórios</a>
+                </li>
             </ul>
 
             <li class="navbar-nav mb-2 mb-lg-0 dropdown">
                 <a class="nav-link dropdown-toggle d-flex align-items-center text-primary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <svg class="bi me-2" width="24" height="24" fill="currentColor">
                         <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#person-circle')}}" />
-                    </svg> Nome do Usuário
+                    </svg> {{auth()->user()->nome}}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item text-decoration-none me-2" href="#">Cadastro</a></li>
-                    <li><a class="dropdown-item link-danger text-decoration-none me-2" href="#">Logout</a></li>
+                    <li><a class="dropdown-item text-decoration-none me-2" href="{{route('cadastros.usuario.buscar')}}/?q={{auth()->user()->nome}}">Cadastro</a></li>
+                    <li>
+                        <form action="{{route('logout')}}" method="POST">
+                            @csrf
+                            <button class="dropdown-item link-danger text-decoration-none me-2" type="submit">Logout</button>
+                        </form>
+                    </li>
                 </ul>
             </li>
 

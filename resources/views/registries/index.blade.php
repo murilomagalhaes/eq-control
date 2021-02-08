@@ -13,7 +13,7 @@
     }
 </style>
 
-<div class="row p-2 border rounded-3 mb-4 shadow-sm">
+<div class="row p-2 border rounded-3 mb-4 shadow-sm bg-light">
     <div class="col-12">
         <div class="d-flex align-items-center justify-content-between">
             <h1 class="h4 my-3 me-3"> Registros de Equipamentos </h1>
@@ -22,7 +22,7 @@
                 </svg> Incluir</a>
 
         </div>
-        <div class="accordion my-3" id="accordionExample">
+        <div class="accordion my-3 bg-white" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button {{isset($search) ? '' : 'collapsed'}}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -80,6 +80,14 @@
                                             <option value="3">Alta</option>
                                             <option value="4" class="text-danger">Crítica</option>
                                         </select>
+
+                                        <select name="status" id="status" class="form-select me-2">
+                                            <option value="" selected disabled>Status</option>
+                                            <option value="pendente">Pendente</option>
+                                            <option value="entregue">Entregue</option>
+                                            <option value="atrasado" class="text-danger">Atrasado</option>
+                                        </select>
+
                                         <a class="btn btn-outline-secondary float-end d-flex align-items-center" title="Limpar pesquisa" href="{{route('registros')}}"><svg class="bi m-auto" width="20" height="20" fill="currentColor">
                                                 <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#arrow-repeat')}}" />
                                             </svg></a>
@@ -118,7 +126,7 @@
     @foreach($registries as $registry)
     <div class="col-lg-4">
 
-        <div class="card p-0 my-3 shadow">
+        <div class="card p-0 my-3 shadow bg-light">
             <a href="{{route('registros.mostrar', $registry)}}" title="Mostrar registro" class="text-decoration-none text-dark" id="registry">
                 <div class="card-body">
                     <h5 class="card-title m-1 text-center">{{$registry->customer->nome}}</h5>

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{BrandController, CustomerController, DashboardController, EquipmentController, EquipmentTypeController, RegistryController};
+use App\Http\Controllers\{BrandController, CustomerController, DashboardController, EquipmentController, EquipmentTypeController, LoginController, RegistryController};
 use App\Http\Controllers\UserController;
 use Illuminate\Routing\RouteRegistrar;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::group(['prefix' => '/cadastros'], function () {
+Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+Route::group(['prefix' => '/cadastros', 'middleware' => 'auth'], function () {
 
     Route::get('/clientes', [CustomerController::class, 'index'])->name('cadastros.cliente');
     Route::get('/clientes/ajax{id?}', [CustomerController::class, 'ajax'])->name('cadastros.cliente.ajax');
@@ -49,7 +54,7 @@ Route::group(['prefix' => '/cadastros'], function () {
     Route::post('/tipos/gravar', [EquipmentTypeController::class, 'store'])->name('cadastros.tipo.gravar');
 });
 
-Route::group(['prefix' => '/registros'], function () {
+Route::group(['prefix' => '/registros', 'middleware' => 'auth'], function () {
     Route::get('/', [RegistryController::class, 'index'])->name('registros');
     Route::get('/buscar', [RegistryController::class, 'search'])->name('registros.buscar');
     Route::get('/incluir', [RegistryController::class, 'form'])->name('registros.incluir');

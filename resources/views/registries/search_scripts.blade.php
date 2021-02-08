@@ -117,6 +117,21 @@
 </script>
 @endif
 
+@if(old('status'))
+<script>
+    // Seleciona status ao abrir formulario.
+    let status = "{{old('status')}}";
+
+    let status_options = document.getElementById('status').options;
+
+    for (i = 0; i < status_options.length; i++) {
+        if (status_options[i].value == status) {
+            status_options[i].setAttribute('selected', 'selected');
+        }
+    }
+</script>
+@endif
+
 @if(old('periodo'))
 <script>
     console.log('AM HERE')
@@ -132,4 +147,6 @@
     }
 </script>
 @endif
+
+
 

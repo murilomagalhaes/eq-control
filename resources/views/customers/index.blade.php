@@ -9,7 +9,7 @@
     }
 </style>
 
-<div class="row p-2 border rounded-3 mb-4 shadow-sm">
+<div class="row p-2 border rounded-3 mb-4 shadow-sm bg-light">
     <div class="col-12">
 
         <div class="d-flex align-items-center justify-content-between">
@@ -19,7 +19,7 @@
                 </svg> Incluir</a>
         </div>
 
-        <div class="accordion my-3" id="searchAccordion">
+        <div class="accordion my-3 bg-white" id="searchAccordion">
             <div class="accordion-item">
 
                 <h2 class="accordion-header" id="headingSearch">

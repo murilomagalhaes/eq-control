@@ -10,7 +10,11 @@
 
 <body>
 
+    @auth
     @include('template.nav')
+    @endauth
+
+    @yield('login')
 
     <div class="container py-4">
         <div class="mx-2">

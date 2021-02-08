@@ -29,7 +29,8 @@ class SearchRegistryFormRequest extends FormRequest
             'periodo_ate' => 'date|nullable|required_with:periodo|required_with:periodo_ate|after:periodo_de',
             'cliente' => 'integer|nullable',
             'responsavel' => 'integer|nullable',
-            'prioridade' => 'integer|between:1,4|nullable'
+            'prioridade' => 'integer|between:1,4|nullable',
+            'status' => 'nullable'
         ];
     }
 

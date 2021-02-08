@@ -185,6 +185,20 @@ class RegistryController extends Controller
             ->when($request->prioridade, function ($registries) use ($request) {
                 return $registries->where('prioridade', $request->prioridade);
             })
+            ->when($request->status, function ($registries) use ($request) {
+                if ($request->status == 'entregue') {
+                    $registries->where('dt_entrega', '<>', null);
+                } else if ($request->status == 'pendente') {
+                    $registries->where('dt_entrega', null)
+                        ->where('dt_previsao', '>', now(), 'or', 'dt_previsao', null);
+                } else if ($request->status == 'atrasado') {
+                    $registries->where('dt_entrega', null)
+                        ->where('dt_previsao', '<', now());
+                }
+
+
+                return $registries;
+            })
             ->orderBy('created_at', 'desc')
             ->paginate(9);
 
@@ -218,7 +232,7 @@ class RegistryController extends Controller
 
         $registry->save();
 
-        if($validated['print']){
+        if ($validated['print']) {
             return redirect()->route('registros')->with([
                 'store_success' => 'Registro de saída efetuado com sucesso!',
                 'print_exit' => $registry
@@ -228,7 +242,5 @@ class RegistryController extends Controller
         return redirect()->route('registros')->with([
             'store_success' => 'Registro de saída efetuado com sucesso!'
         ]);
-
-        
     }
 }

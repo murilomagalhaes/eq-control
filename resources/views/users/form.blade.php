@@ -122,6 +122,12 @@
 
         <hr class="my-4">
 
+        <div class="d-flex align-items-center">
+            <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#info-circle')}}" />
+            </svg>
+            <i> Deixe os campos de senha em banco caso não queira altera-la durante a edição do cadastro. </i>
+        </div>
     </div>
 
 </form>
