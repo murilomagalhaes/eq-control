@@ -14,6 +14,17 @@
 @endif
 
 <script>
+    function destroy() {
+
+        let action = confirm('Ao deletar esse cliente, todos os registros associados a ele também serão deletados. \n\nVocê tem certeza?');
+
+        if (action == true) {
+            form = document.getElementById('delete_form');
+            form.submit();
+        }
+
+    }
+
     // Permitir apenas numeros em inputs
     function onlyNumbers(evt) {
         let charCode = (evt.which) ? evt.which : evt.keyCode
@@ -110,9 +121,10 @@
 <script>
     // Desabilita inputs ao mostrar cadastro.
     var inputs = document.getElementsByTagName("input");
-    document.getElementById('uf').disabled = true;
     for (i = 0; i < inputs.length; i++) {
-        inputs[i].disabled = true;
+        if (inputs[i].type != 'hidden') {
+            inputs[i].disabled = true;
+        }
     }
 </script>
 @elseif($errors->any())

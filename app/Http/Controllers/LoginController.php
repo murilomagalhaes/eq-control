@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect()->route('dashboard');
         }
         return view('login');
@@ -46,10 +46,7 @@ class LoginController extends Controller
 
     public function logout()
     {
-        if (Auth::check()) {
-            Auth::logout();
-        }
-
+        Auth::logout();
         return redirect()->route('login');
     }
 }

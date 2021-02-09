@@ -28,7 +28,7 @@ Novo Registro > Equipamento
 <form action="{{isset($equipment) ? route('registros.equipamentos.atualizar') : route('registros.gravar')}}" method="POST" id="registry_form" novalidate>
     @csrf
 
-    <div class="row p-2 border rounded-3 mb-4 shadow-sm">
+    <div class="row p-2 border rounded-3 mb-4 shadow-sm bg-light">
 
         @if(session('registry_id'))
         <div class="col-md-8 d-flex align-items-center">

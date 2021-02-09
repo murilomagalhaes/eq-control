@@ -9,6 +9,7 @@ use App\Models\{Equipment, Registry};
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use stdClass;
 
 class RegistryController extends Controller
@@ -127,7 +128,7 @@ class RegistryController extends Controller
                 'dt_previsao' => $request->dt_previsao ? Carbon::parse($request->dt_previsao) : null,
                 'responsavel_id' => $request->responsavel,
                 'prioridade' => $request->prioridade,
-                'updated_by' => $request->responsavel
+                'updated_by' => Auth::user()->id
             ]);
 
             $registry->save();

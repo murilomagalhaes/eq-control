@@ -75,17 +75,17 @@
                                     <div class="input-group my-2">
                                         <select name="prioridade" id="prioridade" class="form-select me-2">
                                             <option value="" selected disabled>Prioridade</option>
-                                            <option value="1">Baixa</option>
+                                            <option value="1" class="text-primary">Baixa</option>
                                             <option value="2">Média</option>
-                                            <option value="3">Alta</option>
+                                            <option value="3" style="color: orange">Alta</option>
                                             <option value="4" class="text-danger">Crítica</option>
                                         </select>
 
                                         <select name="status" id="status" class="form-select me-2">
                                             <option value="" selected disabled>Status</option>
-                                            <option value="pendente">Pendente</option>
-                                            <option value="entregue">Entregue</option>
-                                            <option value="atrasado" class="text-danger">Atrasado</option>
+                                            <option value="entregue" class="text-success">Entregues</option>
+                                            <option value="pendente" style="color: orange;" >Pendentes e Atrasados</option>
+                                            <option value="atrasado" class="text-danger">Atrasados</option>
                                         </select>
 
                                         <a class="btn btn-outline-secondary float-end d-flex align-items-center" title="Limpar pesquisa" href="{{route('registros')}}"><svg class="bi m-auto" width="20" height="20" fill="currentColor">
@@ -122,6 +122,8 @@
 @endif
 
 <div class="row">
+
+<span class="text-muted">Listando {{$registries->total()}} registro(s).</span>
 
     @foreach($registries as $registry)
     <div class="col-lg-4">
@@ -211,7 +213,7 @@
 </div>
 
 <div class="my-4 d-flex justify-content-center">
-    {{$registries->links()}}
+    {{$registries->appends(request()->query())->links()}}
 </div>
 
 @if(session('print'))

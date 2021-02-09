@@ -32,7 +32,8 @@ class StoreCustomerFormRequest extends FormRequest
             'cep' => 'digits:8|nullable',
             'uf' => 'max:2|required',
             'cidade' => 'max:60|min:4|required',
-            'endereco' => 'min:4|required'
+            'endereco' => 'min:4|required',
+            'ativo' => 'boolean'
         ];
     }
 

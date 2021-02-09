@@ -26,6 +26,7 @@ class CustomerController extends Controller
         if ($id) {
             $data = Customer::select('id', 'nome', 'cpf_cnpj')
                 ->where('id', $id)
+                ->where('ativo', true)
                 ->first();
 
             return response()->json($data);
@@ -33,10 +34,11 @@ class CustomerController extends Controller
 
 
         if (!$request->has('q')) {
-            $data = Customer::select('id', 'nome', 'cpf_cnpj')->limit(10)->get();
+            $data = Customer::select('id', 'nome', 'cpf_cnpj')->where('ativo', true)->limit(10)->get();
         } else {
             $data = Customer::select('id', 'nome', 'cpf_cnpj')
                 ->where('nome', 'LIKE', "%$request->q%")
+                ->where('ativo', true)
                 ->limit(10)
                 ->get();
         }
@@ -47,6 +49,10 @@ class CustomerController extends Controller
     public function store(StoreCustomerFormRequest $request)
     {
         $validated = $request->validated();
+
+        if (!isset($validated['ativo'])) {
+            $validated['ativo'] = 0;
+        }
 
         //If it's an update...
         if ($request->id) {
@@ -86,5 +92,23 @@ class CustomerController extends Controller
             ->with([
                 'customer' => $customer
             ]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $customer = Customer::find($request->customer_id);
+
+        if ($customer) {
+            $nome = $customer->nome;
+            $customer->delete();
+
+            return redirect()->route('cadastros.cliente')->with([
+                'delete_success' => "Cliente '$nome' deletado com sucesso!"
+            ]);
+        }
+
+        return redirect()->route('cadastros.cliente')->with([
+            'delete_success' => "Erro inesperado."
+        ]);
     }
 }

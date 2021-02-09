@@ -8,7 +8,7 @@
     @csrf
     @endif
 
-    <div class="row p-2 border rounded-3 mb-4 shadow-sm">
+    <div class="row p-2 border rounded-3 mb-4 shadow-sm bg-light">
 
         <div class="col-md-8 d-flex align-items-center">
             <h1 class="h4 my-2"> {{isset($registry->id) ? "Registro: $registry->id" : 'Novo Registro'}} </h1>

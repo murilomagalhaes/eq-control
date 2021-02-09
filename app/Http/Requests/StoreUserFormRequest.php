@@ -30,6 +30,7 @@ class StoreUserFormRequest extends FormRequest
             'email' => 'email|nullable',
             'telefone' => 'digits_between:10,11|nullable',
             'login' => "alpha_dash|required|unique:users,login,$this->id",
+            'ativo' => 'boolean'
         ];
         
         // If it's an update (The requrest has an 'id' field) the password is not required  
@@ -38,7 +39,6 @@ class StoreUserFormRequest extends FormRequest
         } elseif (!$this->id) {
             $rules['password'] = 'required|confirmed';
         }
-
         return $rules;
     }
 

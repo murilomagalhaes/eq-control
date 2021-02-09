@@ -4,7 +4,7 @@
 @section('content')
 
 
-<div class="row p-2 border rounded-3 mb-4 shadow-sm">
+<div class="row p-2 border rounded-3 mb-4 shadow-sm bg-light">
     <div class="col-12">
         <div class="d-flex align-items-center justify-content-between">
             <h1 class="h4 my-3 me-3"> Registro: {{$registry->id}}

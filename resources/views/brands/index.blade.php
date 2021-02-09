@@ -94,7 +94,7 @@
 </div>
 
 <div class="my-4 d-flex justify-content-center">
-    {{$brands->links()}}
+    {{$brands->appends(request()->query())->links()}}
 </div>
 
 @endsection

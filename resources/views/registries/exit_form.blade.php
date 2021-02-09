@@ -7,7 +7,7 @@ Registro de Saída: Registro {{$registry->id}}
 <form action="{{route('registros.saida.gravar')}}" method="POST" id="exit_form" name="exit_form">
     @csrf
     <input type="hidden" name="id" id="id" value="{{$registry->id}}">
-    <div class="row p-2 border rounded-3 mb-4 shadow-sm">
+    <div class="row p-2 border rounded-3 mb-4 shadow-sm bg-light">
 
         <div class="col-md-8 d-flex align-items-center">
             <h1 class="h4 my-2"> Registro de Saída: Registro {{$registry->id}} </h1>
@@ -29,13 +29,13 @@ Registro de Saída: Registro {{$registry->id}}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li>
-                            <button class="dropdown-item d-flex align-items-center" type="submit">
+                            <a class="dropdown-item d-flex align-items-center"  href="#" onclick="submitForm(false)">
                                 <svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#save')}}" />
-                                </svg>Gravar</button>
+                                </svg>Gravar</a>
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#" onclick="submitForm()"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                            <a class="dropdown-item d-flex align-items-center" href="#" onclick="submitForm(true)"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
                                 </svg>Gravar e Imprimir Comprovante</a>
                         </li>
@@ -143,7 +143,7 @@ Registro de Saída: Registro {{$registry->id}}
 
 <script>
     // Envia formulário com instrução para imprimir
-    function submitForm() {
+    function submitForm(print_reg) {
 
         let form = document.getElementById('exit_form')
 
@@ -158,7 +158,7 @@ Registro de Saída: Registro {{$registry->id}}
         let print = document.createElement("input");
         print.name = "print";
         print.type = "hidden";
-        print.value = 1;
+        print.value = print_reg;
 
         form.appendChild(print);
 

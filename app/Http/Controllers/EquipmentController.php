@@ -6,6 +6,7 @@ use App\Http\Requests\EquipmentFormRequest;
 use App\Models\Equipment;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EquipmentController extends Controller
 {
@@ -26,7 +27,7 @@ class EquipmentController extends Controller
                 'num_serie' => $request->serie ?? null,
                 'descricao' => $request->descricao,
                 'problemas' => $request->problemas,
-                'updated_by' => 1
+                'updated_by' => Auth::user()->id
             ]);
 
             $equipment->save();

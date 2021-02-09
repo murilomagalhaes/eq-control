@@ -8,7 +8,7 @@
     <input type="hidden" value="{{$equipment_type->id}}" name="id">
     @endif
 
-    <div class="row p-2 border rounded-3 mb-4 shadow-sm">
+    <div class="row p-2 border rounded-3 mb-4 shadow-sm bg-light">
 
         <div class="col-md-8 d-flex align-items-center">
             <h1 class="h4 my-2"> {{isset($equipment_type->id) ? $equipment_type->nome : 'Novo tipo'}} </h1>
@@ -37,25 +37,11 @@
                         </svg>Voltar</a>
                 </div>
 
-                <div class="dropdown">
-                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        Ações
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li>
-                            <div id="save-edit-div">
-                                <button class="dropdown-item d-flex align-items-center" type="button" id="edit-btn" onclick="enableInputs()">
-                                    <svg class="bi me-2" width="20" height="20" fill="currentColor">
-                                        <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#pencil-square')}}" />
-                                    </svg>Editar</button>
-                            </div>
-                        </li>
-                        <li>
-                            <button class="dropdown-item d-flex align-items-center" type="button"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
-                                    <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#eraser')}}" />
-                                </svg>Deletar</button>
-                        </li>
-                    </ul>
+                <div id="save-edit-div">
+                    <button class="btn btn-outline-primary d-flex align-items-center" type="button" id="edit-btn" onclick="enableInputs()">
+                        <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                            <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#pencil-square')}}" />
+                        </svg>Editar</button>
                 </div>
 
             </div>

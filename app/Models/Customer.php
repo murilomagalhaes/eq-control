@@ -10,8 +10,11 @@ class Customer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nome', 'razao', 'cpf_cnpj', 'email', 'telefone', 'cep', 'uf', 'cidade', 'endereco'
+        'nome', 'razao', 'cpf_cnpj', 'email', 'telefone', 'cep', 'uf', 'cidade', 'endereco', 'ativo'
     ];
+
+    
+
 
     public function registry()
     {

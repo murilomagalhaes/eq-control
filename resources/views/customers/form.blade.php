@@ -8,7 +8,7 @@
     <input type="hidden" value="{{$customer->id}}" name="id">
     @endif
 
-    <div class="row p-2 border rounded-3 mb-4 shadow-sm">
+    <div class="row p-2 border rounded-3 mb-4 shadow-sm bg-light">
 
         <div class="col-md-8 d-flex align-items-center">
             <h1 class="h4 my-2"> {{isset($customer->id) ? $customer->nome : 'Novo cliente'}} </h1>
@@ -49,9 +49,9 @@
                             </div>
                         </li>
                         <li>
-                            <button class="dropdown-item d-flex align-items-center" type="button"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                            <a class="dropdown-item d-flex align-items-center" href="#" onclick="destroy()"> <svg class="bi me-2" width="20" height="20" fill="currentColor">
                                     <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#eraser')}}" />
-                                </svg>Deletar</button>
+                                </svg>Deletar</a>
                         </li>
                     </ul>
                 </div>
@@ -158,11 +158,39 @@
         </div>
 
 
+        <div class="row px-4 my-2">
+            <div class="form-check">
+                @if(isset($customer->ativo) && $customer->ativo == false)
+                <input class="form-check-input" value="1" type="checkbox" id="ativo" name="ativo">
+                @else
+                <input class="form-check-input" value="1" type="checkbox" id="ativo" name="ativo" checked>
+                @endif
+                <label class="form-check-label" for="ativo">
+                    Cadastro ativo
+                </label>
+            </div>
+        </div>
+
+
         <hr class="my-4">
+
+        <div class="d-flex align-items-center">
+            <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#info-circle')}}" />
+            </svg>
+            <i> Cadastros inativos não poderão ser utilizados no registro de entrada de equipamentos. </i>
+        </div>
 
     </div>
 
 </form>
+
+@if(isset($customer))
+<form action="{{route('cadastros.cliente.deletar')}}" method="POST" id="delete_form">
+    @csrf
+    <input type="hidden" name="customer_id" id="customer_id" value="{{$customer->id}}">
+</form>
+@endif
 
 @endsection
 

@@ -63,6 +63,14 @@
 </div>
 @endif
 
+@if(!empty(session('delete_success')))
+<div class="row mt-4">
+    <div class="alert alert-info shadow-sm">
+        {{session('delete_success')}}
+    </div>
+</div>
+@endif
+
 @if($errors->any())
 <div class="row mt-4">
     <div class="alert alert-danger shadow-sm">
@@ -99,6 +107,10 @@
             @endforeach
         </tbody>
     </table>
+</div>
+
+<div class="my-4 d-flex justify-content-center">
+    {{$users->appends(request()->query())->links()}}
 </div>
 
 @endsection

@@ -25,6 +25,10 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
+        if (!isset($validated['ativo'])) {
+            $validated['ativo'] = 0;
+        }
+
         //If it's an update...
         if ($request->id) {
             $user = User::find($request->id);
@@ -33,7 +37,8 @@ class UserController extends Controller
                 'nome' => $validated['nome'],
                 'cpf' => $validated['cpf'],
                 'telefone' => $validated['telefone'],
-                'email' => $validated['email']
+                'email' => $validated['email'],
+                'ativo' => $validated['ativo']
             ];
 
             // Checks if password have been changed
@@ -56,7 +61,8 @@ class UserController extends Controller
             'telefone' => $validated['telefone'],
             'email' => $validated['email'],
             'login' => $validated['login'],
-            'password' => Hash::make($validated['password'])
+            'password' => Hash::make($validated['password']),
+            'ativo' => $validated['ativo']
         ]);
 
         return redirect()->route('cadastros.usuario')->with([
@@ -85,16 +91,18 @@ class UserController extends Controller
 
             $data = User::select('id', 'nome')
                 ->where('id', $id)
+                ->where('ativo', true)
                 ->first();
 
             return response()->json($data);
         }
 
         if (!$request->has('q')) {
-            $data = User::select('id', 'nome')->limit(10)->get();
+            $data = User::select('id', 'nome')->where('ativo', true)->limit(10)->get();
         } else {
             $data = User::select('id', 'nome')
                 ->where('nome', 'LIKE', "%$request->q%")
+                ->where('ativo', true)
                 ->limit(10)
                 ->get();
         }
@@ -108,5 +116,25 @@ class UserController extends Controller
             ->with([
                 'user' => $user
             ]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $user = User::find($request->user_id);
+
+        if ($user) {
+            $nome = $user->nome;
+            $user->delete();
+
+            return redirect()->route('cadastros.usuario')->with([
+                'delete_success' => "Usuário '$nome' deletado com sucesso!"
+            ]);
+        }
+
+        return redirect()->route('cadastros.usuario')->with([
+            'delete_success' => "Erro inesperado."
+        ]);
+
+
     }
 }

@@ -96,7 +96,7 @@
 </div>
 
 <div class="my-4 d-flex justify-content-center">
-    {{$equipment_types->links()}}
+    {{$equipment_types->appends(request()->query())->links()}}
 </div>
 
 @endsection

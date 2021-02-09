@@ -22,7 +22,8 @@ class User extends Authenticatable
         'password',
         'cpf',
         'telefone',
-        'login'
+        'login',
+        'ativo'
     ];
 
     /**

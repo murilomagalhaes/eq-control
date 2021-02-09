@@ -41,6 +41,7 @@ CREATE TABLE `customers` (
   `endereco` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `customers_cpf_cnpj_unique` (`cpf_cnpj`),
   UNIQUE KEY `customers_email_unique` (`email`)
@@ -133,16 +134,17 @@ CREATE TABLE `registries` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `updated_by` bigint(20) unsigned DEFAULT NULL,
-  `procedimentos` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `procedimentos` text COLLATE utf8mb4_unicode_ci,
+  `dt_entrega` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `registries_customer_id_foreign` (`customer_id`),
   KEY `registries_responsavel_id_foreign` (`responsavel_id`),
   KEY `registries_created_by_foreign` (`created_by`),
   KEY `registries_updated_by_foreign` (`updated_by`),
-  CONSTRAINT `registries_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
-  CONSTRAINT `registries_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
-  CONSTRAINT `registries_responsavel_id_foreign` FOREIGN KEY (`responsavel_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `registries_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`)
+  CONSTRAINT `registries_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `registries_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `registries_responsavel_id_foreign` FOREIGN KEY (`responsavel_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `registries_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `users`;
@@ -160,6 +162,7 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_login_unique` (`login`),
   UNIQUE KEY `users_cpf_unique` (`cpf`),
@@ -185,3 +188,6 @@ INSERT INTO `migrations` VALUES (9,'2021_01_19_163326_create_equipments_table',1
 INSERT INTO `migrations` VALUES (10,'2021_02_04_114013_add_updated_by_to_registries_table',2);
 INSERT INTO `migrations` VALUES (11,'2021_02_04_150908_add_updated_by_to_equipments_table',3);
 INSERT INTO `migrations` VALUES (12,'2021_02_04_153802_add_procedimentos_to_registries_table',4);
+INSERT INTO `migrations` VALUES (13,'2021_02_05_112328_add_dt_entrega_to_registries_table',5);
+INSERT INTO `migrations` VALUES (14,'2021_02_09_125753_add_ativo_to_customers_table',5);
+INSERT INTO `migrations` VALUES (15,'2021_02_09_125916_add_ativo_to_users_table',5);

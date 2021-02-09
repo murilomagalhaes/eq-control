@@ -30,6 +30,7 @@ Route::group(['prefix' => '/cadastros', 'middleware' => 'auth'], function () {
     Route::get('/clientes/buscar', [CustomerController::class, 'search'])->name('cadastros.cliente.buscar');
     Route::get('/clientes/incluir', [CustomerController::class, 'form'])->name('cadastros.cliente.incluir');
     Route::get('/clientes/{customer}', [CustomerController::class, 'show'])->name('cadastros.cliente.mostrar');
+    Route::post('/clientes/deletar', [CustomerController::class, 'destroy'])->name('cadastros.cliente.deletar');
     Route::post('/clientes/gravar', [CustomerController::class, 'store'])->name('cadastros.cliente.gravar');
 
     Route::get('/usuarios', [UserController::class, 'index'])->name('cadastros.usuario');
@@ -37,7 +38,9 @@ Route::group(['prefix' => '/cadastros', 'middleware' => 'auth'], function () {
     Route::get('/usuarios/buscar', [UserController::class, 'search'])->name('cadastros.usuario.buscar');
     Route::get('/usuarios/incluir', [UserController::class, 'form'])->name('cadastros.usuario.incluir');
     Route::get('/usuarios/{user}', [UserController::class, 'show'])->name('cadastros.usuario.mostrar');
+    Route::post('/usuarios/deletar', [UserController::class, 'destroy'])->name('cadastros.usuario.deletar');
     Route::post('/usuarios/gravar', [UserController::class, 'store'])->name('cadastros.usuario.gravar');
+    
 
     Route::get('/marcas', [BrandController::class, 'index'])->name('cadastros.marca');
     Route::get('marcas/ajax{id?}', [BrandController::class, 'ajax'])->name('cadastros.marca.ajax');
