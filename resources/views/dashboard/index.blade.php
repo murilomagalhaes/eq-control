@@ -11,7 +11,7 @@
 
 @if(session('success'))
 <div class="row">
-    <div class="alert-success my-4 p-3 rounded-3 d-flex align-items-center">
+    <div class="alert-success my-4 p-3 rounded-3 d-flex align-items-center shadow-sm">
         <svg class="bi me-2" width="24" height="24" fill="currentColor">
             <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#emoji-laughing')}}" />
         </svg>

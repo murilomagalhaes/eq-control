@@ -30,7 +30,8 @@ class SearchRegistryFormRequest extends FormRequest
             'cliente' => 'integer|nullable',
             'responsavel' => 'integer|nullable',
             'prioridade' => 'integer|between:1,4|nullable',
-            'status' => 'nullable'
+            'status' => 'nullable',
+            'action' => 'nullable'
         ];
     }
 

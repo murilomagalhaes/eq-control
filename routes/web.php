@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{BrandController, CustomerController, DashboardController, EquipmentController, EquipmentTypeController, LoginController, RegistryController};
+use App\Http\Controllers\{BrandController, CustomerController, DashboardController, EquipmentController, EquipmentTypeController, LoginController, RegistryController, ReportController};
 use App\Http\Controllers\UserController;
 use Illuminate\Routing\RouteRegistrar;
 use Illuminate\Support\Facades\Route;
@@ -40,7 +40,7 @@ Route::group(['prefix' => '/cadastros', 'middleware' => 'auth'], function () {
     Route::get('/usuarios/{user}', [UserController::class, 'show'])->name('cadastros.usuario.mostrar');
     Route::post('/usuarios/deletar', [UserController::class, 'destroy'])->name('cadastros.usuario.deletar');
     Route::post('/usuarios/gravar', [UserController::class, 'store'])->name('cadastros.usuario.gravar');
-    
+
 
     Route::get('/marcas', [BrandController::class, 'index'])->name('cadastros.marca');
     Route::get('marcas/ajax{id?}', [BrandController::class, 'ajax'])->name('cadastros.marca.ajax');
@@ -73,4 +73,9 @@ Route::group(['prefix' => '/registros', 'middleware' => 'auth'], function () {
 
     Route::get('/equipamentos/editar/{equipment}', [EquipmentController::class, 'form'])->name('registros.equipamentos.editar');
     Route::post('/equipamentos/atualizar', [EquipmentController::class, 'update'])->name('registros.equipamentos.atualizar');
+});
+
+Route::group(['prefix' => '/relatorios', 'middleware' => 'auth'], function () {
+    Route::get('/', [ReportController::class, 'index'])->name('relatorios');
+    Route::get('/processar', [ReportController::class, 'process'])->name('relatorios.processar');
 });

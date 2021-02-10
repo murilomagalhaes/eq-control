@@ -197,7 +197,6 @@ class RegistryController extends Controller
                         ->where('dt_previsao', '<', now());
                 }
 
-
                 return $registries;
             })
             ->orderBy('created_at', 'desc')

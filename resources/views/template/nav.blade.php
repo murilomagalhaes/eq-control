@@ -38,7 +38,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{Route::is('relatorios') ? 'active' : ''}}" aria-current="page" href="#" onclick="alert('Em desenvolvimento')">Relatórios</a>
+                    <a class="nav-link {{Route::is('relatorios') ? 'active' : ''}}" aria-current="page" href="{{route('relatorios')}}">Relatórios</a>
                 </li>
             </ul>
 
