@@ -53,6 +53,7 @@
                                 <div class="col-lg-4 p-2">
                                     <select name="periodo" id="periodo" class="form-select my-2">
                                         <option value="" selected disabled>Período: </option>
+                                        <option></option>
                                         <option value="dt_entrada">Entrada</option>
                                         <option value="dt_previsao">Previsao</option>
                                         <option value="dt_entrega">Entrega</option>
@@ -75,6 +76,7 @@
                                     <div class="input-group my-2">
                                         <select name="prioridade" id="prioridade" class="form-select me-2">
                                             <option value="" selected disabled>Prioridade</option>
+                                            <option>Todas</option>
                                             <option value="1" class="text-primary">Baixa</option>
                                             <option value="2">Média</option>
                                             <option value="3" style="color: orange">Alta</option>
@@ -83,6 +85,7 @@
 
                                         <select name="status" id="status" class="form-select me-2">
                                             <option value="" selected disabled>Status</option>
+                                            <option>Todos</option>
                                             <option value="entregue" class="text-success">Entregues</option>
                                             <option value="pendente" style="color: orange;" >Pendentes e Atrasados</option>
                                             <option value="atrasado" class="text-danger">Atrasados</option>

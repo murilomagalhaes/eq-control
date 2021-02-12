@@ -1,5 +1,9 @@
 @extends('template.base')
 
+@section('title')
+Login
+@endsection
+
 @section('login')
 
 <div class="row m-auto w-100 position-absolute top-50 start-50 translate-middle">

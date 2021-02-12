@@ -9,8 +9,10 @@
         action.type = "hidden";
         action.value = arg;
 
-        form.appendChild(action);        
+        form.appendChild(action);   
         form.submit();    
+
+        
 
     }
 </script>

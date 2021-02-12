@@ -1,17 +1,18 @@
 @extends('template.base')
-
+@section('title') Relatórios @endsection
 @section('content')
 
 <div class="bg-light shadow p-4 border rounded-3">
     <div>
         <h1 class="h4 my-3"> Relatórios </h1>
     </div>
-    <form action="{{route('relatorios.processar')}}" method="GET" id="report_form">
+    <form action="{{route('relatorios.processar')}}" method="GET" id="report_form" target="_blank">
         
         <div class="row">
             <div class="col-lg-4 p-2">
                 <select name="periodo" id="periodo" class="form-select my-2">
                     <option value="" selected disabled>Período: </option>
+                    <option></option>
                     <option value="dt_entrada">Entrada</option>
                     <option value="dt_previsao">Previsao</option>
                     <option value="dt_entrega">Entrega</option>
@@ -34,6 +35,7 @@
                 <div class="input-group my-2">
                     <select name="prioridade" id="prioridade" class="form-select me-3">
                         <option value="" selected disabled>Prioridade</option>
+                        <option>Todos</option>
                         <option value="1" class="text-primary">Baixa</option>
                         <option value="2">Média</option>
                         <option value="3" style="color: orange">Alta</option>
@@ -42,6 +44,7 @@
 
                     <select name="status" id="status" class="form-select">
                         <option value="" selected disabled>Status</option>
+                        <option>Todos</option>
                         <option value="entregue" class="text-success">Entregues</option>
                         <option value="pendente" style="color: orange;">Pendentes e Atrasados</option>
                         <option value="atrasado" class="text-danger">Atrasados</option>
@@ -62,20 +65,20 @@
                 </div>
 
                 <div class="col-md-4">
-                    <a href="#" class="btn btn-outline-primary m-2 w-100 p-2 d-flex align-items-center justify-content-center" onclick="sendReportForm('excel')">
-                        <svg class="bi me-2" width="20" height="20" fill="currentColor">
-                            <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#table')}}" />
-                        </svg>
-                        Exportar p/ Excel
-                    </a>
-                </div>
-
-                <div class="col-md-4">
                     <a href="#" class="btn btn-outline-primary m-2 w-100 p-2 d-flex align-items-center justify-content-center" onclick="sendReportForm('print')">
                         <svg class="bi me-2" width="20" height="20" fill="currentColor">
                             <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
                         </svg>
                         Imprimir
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <a href="#" class="btn btn-outline-primary m-2 w-100 p-2 d-flex align-items-center justify-content-center" onclick="sendReportForm('excel')">
+                        <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                            <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#table')}}" />
+                        </svg>
+                        Exportar p/ Excel
                     </a>
                 </div>
 

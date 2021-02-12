@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SearchRegistryFormRequest;
 use App\Models\Registry;
 use Illuminate\Support\Carbon;
+use App\Exports\RegistriesExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -14,9 +16,10 @@ class ReportController extends Controller
         return view('reports.index');
     }
 
-    protected static function search($request)
+    public static function search($request)
     {
         return Registry::with('equipments', 'customer')
+            ->withCount('equipments')
             ->when($request->periodo, function ($registries) use ($request) {
                 return $registries->whereBetween($request->periodo, [Carbon::parse($request->periodo_de), Carbon::parse($request->periodo_ate)]);
             })
@@ -46,19 +49,33 @@ class ReportController extends Controller
             ->get();
     }
 
+
     public function process(SearchRegistryFormRequest $request)
     {
+        $prioridades = ['Baixa', 'Média', 'Alta', 'Crítica'];
+        $registries = self::search($request);
+        $equip_count = 0;
+
+        foreach ($registries as $registry) {
+            $equip_count += $registry->equipments_count;
+        }
 
         if ($request->action == 'view') {
-
-            $registries = self::search($request);
             return view('reports.view')->with([
-                'registries' => $registries
+                'registries' => $registries,
+                'equip_count' => $equip_count,
+                'prioridades' => $prioridades
             ]);
-        } else if ($request->action == 'excel') {
-            return 'EXCEL';
         } else if ($request->action == 'print') {
-            return 'PRINT';
+            return view('reports.view')->with([
+                'registries' => $registries,
+                'equip_count' => $equip_count,
+                'prioridades' => $prioridades,
+                'print' => true
+            ]);
+
+        } else if ($request->action == 'excel') {
+            Excel::download(new RegistriesExport($registries), 'relatorio.xlsx');
         }
 
         return back()->with([

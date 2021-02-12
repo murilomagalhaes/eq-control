@@ -1,6 +1,3 @@
-<?php //include public_path() . '/prints/ENTREGA.HTML'; 
-?>
-
 <!DOCTYPE html>
 <html lang="pt-Br">
 
