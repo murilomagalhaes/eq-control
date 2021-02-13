@@ -9,10 +9,16 @@
         action.type = "hidden";
         action.value = arg;
 
-        form.appendChild(action);   
-        form.submit();    
+        if (arg == 'view' || arg == 'print') {
+            form.target = '_blank';
+        } else {
+            form.target = '';
+        }
 
-        
+        form.appendChild(action);
+        form.submit();
+
+
 
     }
 </script>

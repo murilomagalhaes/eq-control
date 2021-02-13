@@ -75,7 +75,8 @@ class ReportController extends Controller
             ]);
 
         } else if ($request->action == 'excel') {
-            Excel::download(new RegistriesExport($registries), 'relatorio.xlsx');
+
+            return Excel::download(new RegistriesExport($registries), 'relatorio.xlsx');
         }
 
         return back()->with([

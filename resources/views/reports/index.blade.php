@@ -6,7 +6,7 @@
     <div>
         <h1 class="h4 my-3"> Relatórios </h1>
     </div>
-    <form action="{{route('relatorios.processar')}}" method="GET" id="report_form" target="_blank">
+    <form action="{{route('relatorios.processar')}}" method="GET" id="report_form">
         
         <div class="row">
             <div class="col-lg-4 p-2">
@@ -57,29 +57,29 @@
             <div class="row d-flex justify-content-between">
 
                 <div class="col-md-4">
-                    <a href="#" class="btn btn-outline-primary m-2 w-100 p-2 d-flex align-items-center justify-content-center" onclick="sendReportForm('view')">
+                    <button class="btn btn-outline-primary m-2 w-100 p-2 d-flex align-items-center justify-content-center" onclick="sendReportForm('view')">
                         <svg class="bi me-2" width="20" height="20" fill="currentColor">
                             <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#search')}}" />
                         </svg> Visualizar
-                    </a>
+                    </button>
                 </div>
 
                 <div class="col-md-4">
-                    <a href="#" class="btn btn-outline-primary m-2 w-100 p-2 d-flex align-items-center justify-content-center" onclick="sendReportForm('print')">
+                    <button class="btn btn-outline-primary m-2 w-100 p-2 d-flex align-items-center justify-content-center" onclick="sendReportForm('print')">
                         <svg class="bi me-2" width="20" height="20" fill="currentColor">
                             <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#printer')}}" />
                         </svg>
                         Imprimir
-                    </a>
+                    </button>
                 </div>
 
                 <div class="col-md-4">
-                    <a href="#" class="btn btn-outline-primary m-2 w-100 p-2 d-flex align-items-center justify-content-center" onclick="sendReportForm('excel')">
+                    <button  class="btn btn-outline-primary m-2 w-100 p-2 d-flex align-items-center justify-content-center" onclick="sendReportForm('excel')">
                         <svg class="bi me-2" width="20" height="20" fill="currentColor">
                             <use xlink:href="{{asset('dist/icons/bootstrap-icons.svg#table')}}" />
                         </svg>
                         Exportar p/ Excel
-                    </a>
+                    </button>
                 </div>
 
             </div>
