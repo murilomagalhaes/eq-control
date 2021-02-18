@@ -6,8 +6,9 @@ Com o EQ Control é possívlel registrar a entrada dos equipamentos informando o
 
 
 [Demo](https://eqcontrol.murilomagalhaes.tech/)
-User: admin
-Password: admin@eq_control
+
+Usuario: admin
+Senha: admin@eq_control
 
 
 ## Recursos:
