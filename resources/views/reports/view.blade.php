@@ -64,7 +64,7 @@
                     <div> <span class="fw-bold">Procedimentos realizados: </span>
 
                         <div class="text-break">
-                            {{$registry->procedimentos}} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            {{$registry->procedimentos}}
 
                         </div>
                     </div>
