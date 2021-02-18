@@ -29,7 +29,7 @@ class StoreCustomerFormRequest extends FormRequest
             'cpf_cnpj' => "digits_between:11,14|required|unique:customers,cpf_cnpj,$this->id",
             'email' => 'email|nullable',
             'telefone' => 'digits_between:10,11|required',
-            'cep' => 'digits:8|nullable',
+            'cep' => 'digits:8|required',
             'uf' => 'max:2|required',
             'cidade' => 'max:60|min:4|required',
             'endereco' => 'min:4|required',

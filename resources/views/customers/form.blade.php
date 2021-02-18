@@ -109,8 +109,8 @@
         <div class="row mb-2">
 
             <div class="form-group col-lg-2">
-                <label for="cep">CEP</label>
-                <input type="text" name="cep" id="cep" class="form-control my-2" onkeypress="return onlyNumbers(event)" onblur="pesquisaCep(this.value)" placeholder="Ex: 72000000" minlength="8" maxlength="8" value="{{old('cep')}}{{isset($customer->cep) && !old('cep') ? $customer->cep : ''}}">
+                <label for="cep">CEP <span class="text-danger">*</span></label>
+                <input type="text" name="cep" id="cep" class="form-control my-2" onkeypress="return onlyNumbers(event)" onblur="pesquisaCep(this.value)" placeholder="Ex: 72000000" minlength="8" maxlength="8" value="{{old('cep')}}{{isset($customer->cep) && !old('cep') ? $customer->cep : ''}}" required>
             </div>
 
             <div class="form-group col-lg-2">
