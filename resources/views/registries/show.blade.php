@@ -179,7 +179,7 @@
             <div> <span class="fw-bold"> Marca: </span> {{$equipment->brand->nome}}</div>
             <div> <span class="fw-bold"> Num. de Série: </span> {{$equipment->num_serie}}</div>
             <hr>
-            <span class="fw-bold"> Probleamas: </span>
+            <span class="fw-bold"> Problemas: </span>
             <div> {{$equipment->problemas}}</div>
         </div>
 
