@@ -36,6 +36,7 @@ class UserController extends Controller
             $form_data = [
                 'nome' => $validated['nome'],
                 'cpf' => $validated['cpf'],
+                'login' => $validated['login'],
                 'telefone' => $validated['telefone'],
                 'email' => $validated['email'],
                 'ativo' => $validated['ativo']
