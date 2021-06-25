@@ -1,5 +1,11 @@
 # <p align="center">EQ Control </p>
 
+**Projeto descontinuado!**
+
+Este projeto foi desenvolvido como uma forma de praticar o desenvolvimento com PHP/Laravel, e também para atender uma demanda de um lugar onde trabalhei. E no momento não tenho mais a intenção de continuar o desenvolvimento do projeto.
+
+--
+
 O **EQ Control** é um sistema para gerenciamento de entrada e saída de equipamentos para manutenção. 
 
 Com o EQ Control é possívlel registrar a entrada dos equipamentos informando os problemas apresentados, cliente, data de previsão, e mais! O sistema também conta com comprovantes de entrega, e relatórios que podem ser visualizados, impressos, e exportados em excel (.xlsx).
