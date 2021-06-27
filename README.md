@@ -11,12 +11,6 @@ O **EQ Control** é um sistema para gerenciamento de entrada e saída de equipam
 Com o EQ Control é possívlel registrar a entrada dos equipamentos informando os problemas apresentados, cliente, data de previsão, e mais! O sistema também conta com comprovantes de entrega, e relatórios que podem ser visualizados, impressos, e exportados em excel (.xlsx).
 
 
-Acesse a [Demonstração!](https://eqcontrol.murilomagalhaes.tech/)
-
-Usuario: admin <br>
-Senha: admin@eq_control
-
-
 ## Recursos:
 
  - Cadastros de clientes, usuários, marcas e tipos de equipamentos.
